@@ -13,5 +13,3 @@ export const Database = {
     estoque: [] //Simone
 
 }
-
-    

@@ -56,10 +56,10 @@ class ColaboradoresMetodos {
 
     /**
      * 
-     * @param ()
-     * @returns 
+     * @param (req.params.id)
+     * @returns (update do colaborador por id)
      */
-    static atualizarColaboradores(id){
+    static atualizarColaboradores(colaborador, id){
 
         const query = `UPDATE colaboradores SET 
         matricula_colaborador=?, 
@@ -70,17 +70,35 @@ class ColaboradoresMetodos {
         email_colaborador=?, 
         telefone_colaborador=?, 
         turno_colaborador=?, 
-        alario_colaborador=?, 
+        salario_colaborador=?, 
         admissao_colaborador=?, 
         demissao_colaborador=? 
         WHERE matricula_colaborador=?`
 
+        const body = Object.values(colaborador);
+
         return new Promise((resolve, reject) => {
-            Database.run(query, id, (error) => {
+            Database.run(query, ...body, id,(error, row) => {
                 if (!error){
                     resolve('Colaborador atualizado com sucesso.')
+                    console.log(row)
                 } else {
                     reject(`Não foi possível atualizar os dados do colaborador: ${error.message}`);
+                }
+            })
+        })
+    }
+
+    static alterarCamposColaborador(){
+
+        const query = ``;
+
+        return new Promise((resolve, reject) => {
+            Database.run(query, id, (error) => {
+                if (!error) {
+                    resolve(`Colaborador matrícula: ${id} alterado com sucesso.`)
+                } else {
+                    reject(`Não foi possível alterar os campos do colaborador ${id}: ${error.message}`);
                 }
             })
         })

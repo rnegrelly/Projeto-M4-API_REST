@@ -23,8 +23,16 @@ class ColaboradoresController {
       }
     })
 
-    app.put("/colaboradores", async (req, res) => {
-    
+    app.put("/colaboradores/:id", async (req, res) => {
+      try{
+        const matricula = req.params.id;
+        const colaborador = new ColaboradoresModel(...Object.values(req.body));
+        const response = await ColaboradoresMetodos.atualizarColaboradores(colaborador, matricula);
+        res.status(201).json(response);
+      } catch(error) {
+        res.status(404).json(`${error}`)
+      }
+      
     })
 
     app.patch("/colaboradores/:parametro", () => {

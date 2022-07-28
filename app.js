@@ -1,8 +1,12 @@
 import express  from "express";
-import funcionariosController from "./src/controllers/funcionariosController.js";
+import CriaTabelas from "./src/DAO/CriaTabelas.js"
+import * as dotenv from "dotenv"
+import ColaboradoresController from "./src/controller/ColaboradoresController.js";
+
+dotenv.config()
 
 const app = express();
-const port = 3000;
+const port =  process.env.PORT || 3000;
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`)
@@ -10,5 +14,9 @@ app.listen(port, () => {
 
 app.use(express.json());
 
+CriaTabelas.criaTabelaCardapio();
+CriaTabelas.criaTabelaCliente();
+CriaTabelas.criaTabelaFornecedores();
+CriaTabelas.criaTabelaColaboradores();
 
-funcionariosController.rotas(app)
+ColaboradoresController.rotas(app);

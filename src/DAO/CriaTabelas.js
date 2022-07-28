@@ -37,7 +37,7 @@ class CriaTabelas {
       turno_colaborador VARCHAR,
       salario_colaborador VARCHAR,
       admissao_colaborador VARCHAR,
-      demissao__colaborador VARCHAR
+      demissao_colaborador VARCHAR
       )
     `
     return new Promise((resolve, reject)=>{

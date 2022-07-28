@@ -3,7 +3,7 @@ class CardapioController {
   static rotas(app){
 
       app.get("/cardapio", () => {
-          
+
       })
 
       app.post("/cardapio", () => {

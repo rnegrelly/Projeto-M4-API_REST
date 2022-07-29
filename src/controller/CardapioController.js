@@ -38,6 +38,13 @@ class CardapioController {
 
       app.post("/cardapio", async (req, res) => {
         //insere novo item no cardapio
+        try{
+          const item_cardapio = new CardapioModel(...Object.values(req.body));
+          const response = await CardapioMetodos.InserirItemCardapio(item_cardapio);
+        res.status(200).json(response);
+        } catch(error) {
+          res.status(400).send(`${error}`);
+        }
       })
 
       app.put("/cardapio/:parametro", async (req, res) => {

@@ -46,8 +46,30 @@ class CardapioMetodos {
     })
   }
 
-  static InserirItemCardapio() {
+  static InserirItemCardapio(item) {
     //insere item no cardapio
+    const query = `
+      INSERT INTO cardapio 
+      (id_cardapio,
+      categoria_cardapio, 
+      sabor_cardapio, 
+      ingredientes_cardapio, 
+      tamanho_cardapio, 
+      valor_cardapio)
+      VALUES (?,?,?,?,?,?)
+      `
+
+        const body = Object.values(item);
+
+        return new Promise((resolve, reject) => {
+            Database.run(query, ...body,(error) => {
+                if (!error){
+                    resolve('Item do cardápio cadastrado com sucesso.')
+                } else {
+                    reject(`Não foi possível efetuar o cadastro do item no cardápio: ${error.message}`);
+                }
+            })
+        })
   }
 
   static alterarItemCardapio() {

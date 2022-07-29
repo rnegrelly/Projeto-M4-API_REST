@@ -49,21 +49,21 @@ class CardapioController {
         }
     })
 
-      app.delete("/cardapio/:id", async (req, res) => {
-        // deletar item do cardapio
-        try {                
-          const item = await CardapioMetodos.deletaItemCardapio(req.params.id)
-          if(!item){
-              throw new Error("Item não encontrado")
-          }
-          res.status(200).json(item)
+    app.delete("/cardapio/:id", async (req, res) => {
+      try {                
+        const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)
+        if(!item){
+            throw new Error("Item não encontrado")
+        }
+        res.status(200).json(item)
       } catch (error) {    
-          res.status(404).json({Error: error.message})
+        res.status(404).json({Error: error.message})
       }
-      })
+    })
 
   }
 
 }
+
 
 export default CardapioController;

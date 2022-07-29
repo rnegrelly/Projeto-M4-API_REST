@@ -92,8 +92,7 @@ class CardapioMetodos {
     })
   }
 
-  static deletaItemCardapio(id) {
-    //deleta item do cardapio
+  static deletarItemCardapioPorId(id) {
     const query = `DELETE FROM cardapio WHERE id_cardapio = ?`
     
     return new Promise((resolve, reject) => {

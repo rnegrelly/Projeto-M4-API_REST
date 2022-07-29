@@ -16,8 +16,14 @@ class CardapioController {
         }
       })
 
-      app.get("/cardapio/:sabor_cardapio", async (req, res) => {
+      app.get("/cardapio/:categoria_cardapio", async (req, res) => {
         //recupera pizza por sabor
+        try{
+          const response = await CardapioMetodos.listarCategoriaCardapio(req.params.categoria_cardapio);
+          res.status(200).json(response)
+        } catch(error) {
+          throw new Error(res.status(400).send(`Erro ao acessar o endereço: ${error}`));
+        }
       })
 
       app.get("/cardapio", async (req, res) => {

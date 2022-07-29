@@ -17,8 +17,19 @@ class CardapioMetodos {
     })
   }
 
-  static listarCategoriaCardapio() {
-    //metodo que busque o item de uma dar 3 categorias: pizzas doces, pizzas salgadas, bebidas
+  static listarCategoriaCardapio(categoria) {
+    
+    const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`;
+
+    return new Promise((resolve, reject) => {
+        Database.all(query, (error, response) => {
+            if (!error) {
+                resolve(response)
+            } else {
+                reject(error.message)
+            }
+        })
+    })
   }
 
   static buscarSaborCardapio() {

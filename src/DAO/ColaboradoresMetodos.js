@@ -23,6 +23,28 @@ class ColaboradoresMetodos {
 
     /**
      * 
+     * @param (matricula)
+     * @returns (1 coluna da tabela colaborador)
+     */
+    static listarColaboradoresPorMatricula(matricula) {
+        const query = `SELECT * FROM colaboradores WHERE matricula_colaborador=?`;
+        return new Promise((resolve, reject) => {
+            try{
+                Database.get(query, matricula, (error, response) => {
+                    if(!error) {
+                        resolve(response);
+                    } else {
+                        reject(`Erro ao buscar colaborador por matricula: ${error.message}`)
+                    }
+                })
+        } catch(error) {
+            throw new Error(error);
+        }
+    })
+    }
+
+    /**
+     * 
      * @param (req.body) 
      * @returns (Popula a tabela colaboradores)
      */
@@ -59,7 +81,7 @@ class ColaboradoresMetodos {
      * @param (req.params.id)
      * @returns (update do colaborador por id)
      */
-    static atualizarColaboradores(colaborador, id){
+    static atualizarColaboradores(colaborador, matricula){
 
         const query = `UPDATE colaboradores SET 
         matricula_colaborador=?, 
@@ -78,7 +100,7 @@ class ColaboradoresMetodos {
         const body = Object.values(colaborador);
 
         return new Promise((resolve, reject) => {
-            Database.run(query, ...body, id,(error, row) => {
+            Database.run(query, ...body, matricula,(error, row) => {
                 if (!error){
                     resolve('Colaborador atualizado com sucesso.')
                     console.log(row)
@@ -96,9 +118,9 @@ class ColaboradoresMetodos {
         return new Promise((resolve, reject) => {
             Database.run(query, id, (error) => {
                 if (!error) {
-                    resolve(`Colaborador matrícula: ${id} alterado com sucesso.`)
+                    resolve(`Colaborador alterado com sucesso.`)
                 } else {
-                    reject(`Não foi possível alterar os campos do colaborador ${id}: ${error.message}`);
+                    reject(`Não foi possível alterar os campos do colaborador: ${error.message}`);
                 }
             })
         })

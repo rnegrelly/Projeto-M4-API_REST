@@ -31,46 +31,24 @@ class CardapioMetodos {
     })
   }
 
-  static buscarSaborCardapio(sabor) {
-    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`;
+  static insereItemCardapio(item) {
 
-    return new Promise((resolve, reject) => {
-        Database.all(query, (error, response) => {
-            if (!error) {
-                resolve(response)
-            } else {
-                reject(error.message)
-            }
+    const query = `INSERT INTO cardapio (id_cardapio, categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?,?)`
+
+    const body = Object.values(item)
+
+      return new Promise((resolve, reject)=>{
+        Database.run(query, [...body], (e)=>{
+          if(e){
+            reject(e.message)
+          } else {
+            resolve({error: false, message: "Cadastrado com sucesso!"})
+          }
         })
-    })
+      })
+    
   }
-
-  static InserirItemCardapio(item) {
-    //insere item no cardapio
-    const query = `
-      INSERT INTO cardapio 
-      (id_cardapio,
-      categoria_cardapio, 
-      sabor_cardapio, 
-      ingredientes_cardapio, 
-      tamanho_cardapio, 
-      valor_cardapio)
-      VALUES (?,?,?,?,?,?)
-      `
-
-    const body = Object.values(item);
-
-    return new Promise((resolve, reject) => {
-        Database.run(query, [...body], (error) => {
-            if (!error){
-                resolve('Item do cardápio cadastrado com sucesso.')
-            } else {
-                reject(`Não foi possível efetuar o cadastro do item no cardápio: ${error.message}`);
-            }
-        })
-    })
-  }
-
+  
   static alterarItemCardapio() {
     //altera item do cardapio, precisa ser o objeto completo
   }

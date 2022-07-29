@@ -19,26 +19,13 @@ class CardapioController {
 
     })
 
-      app.get("/cardapio/:sabor", async (req, res) => {
-        //recupera pizza por sabor
-        try{
-          const response = await CardapioMetodos.buscarSaborCardapio(req.params.sabor);
-          res.status(200).json(response)
-        } catch(error) {
-          throw new Error(res.status(400).send(`Erro ao acessar o endereço: ${error}`));
-        }     
-      })
+    app.post("/cardapio", async (req, res) => {
 
-      app.post("/cardapio", async (req, res) => {
-        //insere novo item no cardapio
-        try{
-          const item_cardapio = new CardapioModel(...Object.values(req.body));
-          const response = await CardapioMetodos.InserirItemCardapio(item_cardapio);
-        res.status(200).json(response);
-        } catch(error) {
-          res.status(400).send(`${error}`);
-        }
-      })
+      const item = new CardapioModel(...Object.values(req.body))
+      const response = await CardapioMetodos.insereItemCardapio(item)
+      res.status(200).json(response)
+
+    })
 
       app.put("/cardapio/:parametro", async (req, res) => {
         //alterar item do cardapio, objeto inteiro

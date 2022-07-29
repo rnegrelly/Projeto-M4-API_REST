@@ -1,4 +1,4 @@
-export class CardapioModel {
+class CardapioModel {
 
   constructor(id_cardapio, categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) {
     
@@ -11,3 +11,5 @@ export class CardapioModel {
 
   }
 }
+
+export default CardapioModel;

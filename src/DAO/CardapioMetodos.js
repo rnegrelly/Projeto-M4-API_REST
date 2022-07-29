@@ -74,8 +74,22 @@ class CardapioMetodos {
 
   }
 
-  static alteraValorCardapio() {
-    //altera valor de item do cardapio, fazendo a busca por id
+  static atualizaValorItemCardapio(item, id) {
+    const query = `UPDATE cardapio SET 
+      valor_cardapio = ? 
+      WHERE id_cardapio = ?`
+      
+    const body = Object.values(item)
+    
+    return new Promise((resolve, reject)=>{
+      Database.run(query,[...body, id], (e, result)=>{
+        if(e){
+          reject(e.message)
+        } else {
+          resolve(result)
+        }
+      })
+    })
   }
 
   static deletaItemCardapio(id) {

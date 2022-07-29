@@ -35,9 +35,19 @@ class CardapioController {
 
     })
 
-      app.patch("/cardapio/:parametro", async (req, res) => {
-        //alterar valor do item do cardapio
-      })
+    app.patch("/cardapio/:id", async (req, res) => {
+      const item = req.body
+        try {
+            const novoValor = await CardapioMetodos.atualizaValorItemCardapio(item, req.params.id)
+            res.status(200).json(novoValor)
+            res.status(200).send({rolou:"rolou muito"})
+        } catch (error) {
+            res.status(400).json({
+              "error": true,
+              "message": error.message
+            })
+        }
+    })
 
       app.delete("/cardapio/:id", async (req, res) => {
         // deletar item do cardapio

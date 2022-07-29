@@ -18,7 +18,7 @@ class CardapioMetodos {
   }
 
   static listarCategoriaCardapio(categoria) {
-    
+
     const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`;
 
     return new Promise((resolve, reject) => {
@@ -32,8 +32,18 @@ class CardapioMetodos {
     })
   }
 
-  static buscarSaborCardapio() {
-    //metodo que retorne um item pizza por sabor
+  static buscarSaborCardapio(sabor) {
+    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`;
+
+    return new Promise((resolve, reject) => {
+        Database.all(query, (error, response) => {
+            if (!error) {
+                resolve(response)
+            } else {
+                reject(error.message)
+            }
+        })
+    })
   }
 
   static InserirItemCardapio() {

@@ -17,18 +17,17 @@ class CardapioMetodos {
     })
   }
 
-  static listarCategoriaCardapio(categoria) {
+  static listarCardapioPorSabor(sabor) {
+    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
 
-    const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`;
-
-    return new Promise((resolve, reject) => {
-        Database.all(query, (error, response) => {
-            if (!error) {
-                resolve(response)
-            } else {
-                reject(error.message)
-            }
-        })
+    return new Promise((resolve, reject)=> {
+      Database.get(query, sabor, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
     })
   }
 

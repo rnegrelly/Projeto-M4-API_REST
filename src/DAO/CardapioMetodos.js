@@ -4,16 +4,16 @@ class CardapioMetodos {
 
   static listarCardapio() {
 
-    const query = `SELECT * FROM cardapio`;
+    const query = `SELECT * FROM cardapio`
 
-    return new Promise((resolve, reject) => {
-        Database.all(query, (error, response) => {
-            if (!error) {
-                resolve(response)
-            } else {
-                reject(error.message)
-            }
-        })
+    return new Promise((resolve, reject)=> {
+      Database.all(query, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
     })
   }
 
@@ -59,17 +59,17 @@ class CardapioMetodos {
       VALUES (?,?,?,?,?,?)
       `
 
-        const body = Object.values(item);
+    const body = Object.values(item);
 
-        return new Promise((resolve, reject) => {
-            Database.run(query, ...body,(error) => {
-                if (!error){
-                    resolve('Item do cardápio cadastrado com sucesso.')
-                } else {
-                    reject(`Não foi possível efetuar o cadastro do item no cardápio: ${error.message}`);
-                }
-            })
+    return new Promise((resolve, reject) => {
+        Database.run(query, [...body], (error) => {
+            if (!error){
+                resolve('Item do cardápio cadastrado com sucesso.')
+            } else {
+                reject(`Não foi possível efetuar o cadastro do item no cardápio: ${error.message}`);
+            }
         })
+    })
   }
 
   static alterarItemCardapio() {
@@ -80,8 +80,19 @@ class CardapioMetodos {
     //altera valor de item do cardapio, fazendo a busca por id
   }
 
-  static deletaItemCardapio() {
+  static deletaItemCardapio(id) {
     //deleta item do cardapio
+    const query = `DELETE FROM cardapio WHERE id_cardapio = ?`
+    
+    return new Promise((resolve, reject) => {
+      Database.run(query, id, (e)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve({erro: false, message: `Registro com Id ${id} deletado com sucesso`})
+          }
+      })
+    })
   }
 }
 

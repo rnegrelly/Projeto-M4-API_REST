@@ -1,4 +1,4 @@
-import CardapioMetodos from "../DAO/CardapioMetodos.js";
+import CardapioMetodos from "../DAO/CardapioMetodos.js"
 import CardapioModel from "../model/CardapioModel.js";
 
 
@@ -6,30 +6,27 @@ class CardapioController {
 
   static rotas(app){
 
-      app.get("/cardapio", async (req, res) => {
-        //recupera todos os itens do cardapio
-        try{
-          const response = await CardapioMetodos.listarCardapio();
-          res.status(200).json(response)
-        } catch(error) {
-          throw new Error(res.status(400).send(`Erro ao acessar o endereço: ${error}`));
-        }
-      })
+    app.get("/cardapio",  async (req, res) => {
 
-      app.get("/cardapio/:categoria_cardapio", async (req, res) => {
+      const response = await CardapioMetodos.listarCardapio()
+      res.status(200).json(response)
+
+    })
+
+      app.get("/cardapio/:categoria", async (req, res) => {
         //listar cardapio por categoria
         try{
-          const response = await CardapioMetodos.listarCategoriaCardapio(req.params.categoria_cardapio);
+          const response = await CardapioMetodos.listarCardapio()
           res.status(200).json(response)
         } catch(error) {
           throw new Error(res.status(400).send(`Erro ao acessar o endereço: ${error}`));
         }
       })
 
-      app.get("/cardapio/:sabor_cardapio", async (req, res) => {
+      app.get("/cardapio/:sabor", async (req, res) => {
         //recupera pizza por sabor
         try{
-          const response = await CardapioMetodos.buscarSaborCardapio(req.params.sabor_cardapio);
+          const response = await CardapioMetodos.buscarSaborCardapio(req.params.sabor);
           res.status(200).json(response)
         } catch(error) {
           throw new Error(res.status(400).send(`Erro ao acessar o endereço: ${error}`));
@@ -55,8 +52,17 @@ class CardapioController {
         //alterar valor do item do cardapio
       })
 
-      app.delete("/cardapio/:parametro", async (req, res) => {
+      app.delete("/cardapio/:id", async (req, res) => {
         // deletar item do cardapio
+        try {                
+          const item = await CardapioMetodos.deletaItemCardapio(req.params.id)
+          if(!item){
+              throw new Error("Item não encontrado")
+          }
+          res.status(200).json(item)
+      } catch (error) {    
+          res.status(404).json({Error: error.message})
+      }
       })
 
   }

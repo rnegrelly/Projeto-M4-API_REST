@@ -27,9 +27,13 @@ class CardapioController {
 
     })
 
-      app.put("/cardapio/:parametro", async (req, res) => {
-        //alterar item do cardapio, objeto inteiro
-      })
+    app.put("/cardapio/:id", async (req, res) =>{
+      
+      const item = new CardapioModel(...Object.values(req.body))
+      const response = CardapioMetodos.atualizarItemCardapio(item, req.params.id)
+      res.status(201).json(response)
+
+    })
 
       app.patch("/cardapio/:parametro", async (req, res) => {
         //alterar valor do item do cardapio

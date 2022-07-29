@@ -48,9 +48,30 @@ class CardapioMetodos {
       })
     
   }
-  
-  static alterarItemCardapio() {
-    //altera item do cardapio, precisa ser o objeto completo
+
+  static atualizarItemCardapio(entidade, id){
+    
+    const query = `UPDATE cardapio SET 
+      id_cardapio = ?, 
+      categoria_cardapio = ?, 
+      sabor_cardapio = ?,
+      ingredientes_cardapio = ?,
+      tamanho_cardapio = ?, 
+      valor_cardapio = ? 
+      WHERE id_cardapio = ?`
+      
+    const body = Object.values(entidade)
+    
+    return new Promise((resolve, reject)=>{
+      Database.run(query,[...body, id], (e, result)=>{
+        if(e){
+          reject(e.message)
+        } else {
+          resolve(result)
+        }
+      })
+    })
+
   }
 
   static alteraValorCardapio() {

@@ -1,5 +1,8 @@
 import express  from "express";
-import Client from "./src/controller/controller_user.js";
+import CriaTabelas from "./src/DAO/CriaTabelas.js"
+import ColaboradoresController from "./src/controller/ColaboradoresController.js";
+
+dotenv.config()
 
 const app = express();
 const port = 3000;
@@ -10,4 +13,9 @@ app.listen(port, () => {
 
 app.use(express.json());
 
-Client.Rotas(app);
+CriaTabelas.criaTabelaCardapio();
+CriaTabelas.criaTabelaCliente();
+CriaTabelas.criaTabelaFornecedores();
+CriaTabelas.criaTabelaColaboradores();
+
+ColaboradoresController.rotas(app);

@@ -1,17 +1,28 @@
-export const Database = {
+import sqlite3 from "sqlite3";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
-    cliente: [], //Renato
+sqlite3.verbose();
+const filePath = dirname(fileURLToPath(import.meta.url)) + "/database.db";
+const Database = new sqlite3.Database(filePath);
 
-    fornecedor: [], //Larri
+export default Database;
 
-    funcionarios: [], //Helder
 
-    cardapio: [], //Nodja
+// export const Database = {
 
-    pedido: [], //Nodja
+//     cliente: [], //Renato
 
-    estoque: [] //Simone
+//     fornecedor: [], //Larri
 
-}
+//     funcionarios: [], //Helder
+
+//     cardapio: [], //Nodja
+
+//     pedido: [], //Nodja
+
+//     estoque: [] //Simone
+
+// }
 
     

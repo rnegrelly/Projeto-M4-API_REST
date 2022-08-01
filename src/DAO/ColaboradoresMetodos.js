@@ -13,7 +13,6 @@ class ColaboradoresMetodos {
             Database.all(query, (error, response) => {
                 if (!error) {
                     resolve(response)
-                    console.log(response)
                 } else {
                     reject(error.message)
                 }
@@ -27,20 +26,21 @@ class ColaboradoresMetodos {
      * @returns (1 coluna da tabela colaborador)
      */
     static listarColaboradoresPorMatricula(matricula) {
+
         const query = `SELECT * FROM colaboradores WHERE matricula_colaborador=?`;
         return new Promise((resolve, reject) => {
-            try{
+            try {
                 Database.get(query, matricula, (error, response) => {
-                    if(!error) {
+                    if (!error) {
                         resolve(response);
                     } else {
                         reject(`Erro ao buscar colaborador por matricula: ${error.message}`)
                     }
                 })
-        } catch(error) {
-            throw new Error(error);
-        }
-    })
+            } catch (error) {
+                throw new Error(error);
+            }
+        })
     }
 
     /**
@@ -66,8 +66,8 @@ class ColaboradoresMetodos {
         const body = Object.values(colaborador);
 
         return new Promise((resolve, reject) => {
-            Database.run(query, ...body,(error) => {
-                if (!error){
+            Database.run(query, ...body, (error) => {
+                if (!error) {
                     resolve('Colaborador cadastrado com sucesso.')
                 } else {
                     reject(`Não foi possível efetuar o cadastro do colaborador: ${error.message}`);
@@ -81,7 +81,7 @@ class ColaboradoresMetodos {
      * @param (req.params.id)
      * @returns (update do colaborador por id)
      */
-    static atualizarColaboradores(colaborador, matricula){
+    static atualizarColaboradores(colaborador, matricula) {
 
         const query = `UPDATE colaboradores SET 
         matricula_colaborador=?, 
@@ -99,30 +99,61 @@ class ColaboradoresMetodos {
 
         const body = Object.values(colaborador);
 
-        return new Promise((resolve, reject) => {
-            Database.run(query, ...body, matricula,(error, row) => {
-                if (!error){
-                    resolve('Colaborador atualizado com sucesso.')
-                    console.log(row)
-                } else {
-                    reject(`Não foi possível atualizar os dados do colaborador: ${error.message}`);
-                }
-            })
-        })
+        const verificaMatricula = [...body];
+        try{
+            if (verificaMatricula[0] === parseInt(matricula)) {
+                return new Promise((resolve, reject) => {
+                    Database.run(query, ...body, matricula, (error) => {
+                        if (!error) {
+                            resolve('Colaborador atualizado com sucesso.');
+                        } else {
+                            reject(`Não foi possível atualizar os dados do colaborador: "${error}" - Colaborador não existente.`);
+                        }
+                    })
+                })
+            } else {
+                throw new Error (`Não é possível alterar a matrícula de um colaborador.`)
+            }
+        } catch(error) {
+            throw new Error(error)
+        }
+
     }
 
-    static alterarCamposColaborador(){
+    static alterarCamposColaborador(colaborador, matricula) {
 
-        const query = ``;
+        const query = `UPDATE colaboradores SET 
+        cargo_colaborador=?, 
+        salario_colaborador=?, 
+        demissao_colaborador=? 
+        WHERE matricula_colaborador=?`;
+
+        const body = Object.values(colaborador)
 
         return new Promise((resolve, reject) => {
-            Database.run(query, id, (error) => {
+            Database.run(query, ...body, matricula, (error) => {
                 if (!error) {
                     resolve(`Colaborador alterado com sucesso.`)
                 } else {
                     reject(`Não foi possível alterar os campos do colaborador: ${error.message}`);
                 }
             })
+        })
+    }
+
+    static descadastrarColaborador(matricula) {
+        const query = `DELETE FROM colaboradores WHERE matricula_colaborador=?`;
+
+        return new Promise((resolve, reject) => {
+
+            Database.run(query, matricula, (error) => {
+                if (!error) {
+                    resolve(`Colaborador matrícula ${matricula} excluído com sucesso.`);
+                } else {
+                    reject(`Colaborador matrícula ${matricula} não encontrado.`)
+                }
+            })
+
         })
     }
 }

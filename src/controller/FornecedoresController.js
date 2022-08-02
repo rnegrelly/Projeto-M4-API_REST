@@ -1,5 +1,5 @@
-import FornecedoresModel from "../model/FornecedoresModel"
-import FornecedoresMetodos from "../DAO/FornecedoresMetodos"
+import FornecedoresModel from "../model/FornecedoresModel.js"
+import FornecedoresMetodos from "../DAO/FornecedoresMetodos.js"
 
 class FornecedoresController {
         static rotas(app) {

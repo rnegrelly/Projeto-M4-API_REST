@@ -1,6 +1,6 @@
-import Database from "../infra/dbrestaurante";
+import Database from "../infra/dbrestaurante.js";
 
-class FornecedoresMetodos extends DAO {
+class FornecedoresMetodos {
 
     static async fornecedoresInserir(fornecedores) {
       const query = `INSERT INTO fornecedor(id_fornecedor, nome_fornecedor, cnpj_fornecedor, endereco_fornecedor, ramo_fornecedor, email_fornecedor, telefone_fornecedor ) VALUES (?,?,?,?,?,?)`;

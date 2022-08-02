@@ -2,9 +2,8 @@
 
 class ClientesModel {
 
-    constructor(id_cliente, nome_cliente, cpf_cliente, endereco_cliente, email_cliente, telefone_cliente){
+    constructor(nome_cliente, cpf_cliente, endereco_cliente, email_cliente, telefone_cliente){
         
-        this.id_cliente = id_cliente
         this.nome_cliente = nome_cliente
         this.cpf_cliente = cpf_cliente
         this.endereco_cliente = endereco_cliente

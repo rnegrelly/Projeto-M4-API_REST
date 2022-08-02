@@ -87,25 +87,25 @@ class ClientesController {
             }
         })
 
-        //deletar TODOS os clientes cadastrados
-        app.delete("/clientes/all"), async (req, res) => {
+        // //deletar TODOS os clientes cadastrados
+        // app.delete("/clientes/all"), async (req, res) => {
 
-            try {
-                const cliente = await ClientesMetodos.deletarDadosTabela();
+        //     try {
+        //         const cliente = await ClientesMetodos.deletarDadosTabela();
                 
-                if(!cliente){
-                    throw new Error ("Banco de dados vazio.")
-                }else {
-                    res.status(200).send(cliente)
-                }
+        //         if(!cliente){
+        //             throw new Error ("Banco de dados vazio.")
+        //         }else {
+        //             res.status(200).send(cliente)
+        //         }
                 
 
-            } catch (error) {
+        //     } catch (error) {
                 
-                res.status(404).send(`Erro: ${error.message}`)
-            }
+        //         res.status(404).send(`Erro: ${error.message}`)
+        //     }
 
-        }
+        // }
          
     }
   

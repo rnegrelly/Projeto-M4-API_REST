@@ -18,4 +18,6 @@ CriaTabelas.criaTabelaClientes();
 CriaTabelas.criaTabelaFornecedores();
 CriaTabelas.criaTabelaColaboradores();
 
+
+
 ColaboradoresController.rotas(app);

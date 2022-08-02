@@ -11,7 +11,7 @@ class ClientesController {
             
             try {
                 const resposta = await ClientesMetodos.listarClientes();
-                res.status(200).json(resposta)
+                res.status(200).send(resposta)
 
             } catch (error) {
                 
@@ -25,7 +25,7 @@ class ClientesController {
 
             try {                
                 const resposta = await ClientesMetodos.listarClientesPorId(req.params.id_cliente)
-                res.status(200).json(resposta);
+                res.status(200).send(resposta);
 
             } catch (error) {
                 res.status(404).send(error.message)
@@ -39,7 +39,7 @@ class ClientesController {
             try{
                 const cliente = new ClientesModel(...Object.values(req.body));
                 const resposta = await ClientesMetodos.cadastrarClientes(cliente);
-                res.status(200).json(resposta);
+                res.status(200).send(resposta);
 
               } catch(error) {
 
@@ -87,15 +87,22 @@ class ClientesController {
             }
         })
 
-        app.delete("/clientes/truncate"), async (req, res) => {
+        //deletar TODOS os clientes cadastrados
+        app.delete("/clientes/all"), async (req, res) => {
 
             try {
-                const resposta = await ClientesMetodos.deletarDadosTabela();
-                res.status(200).json(resposta)
+                const cliente = await ClientesMetodos.deletarDadosTabela();
+                
+                if(!cliente){
+                    throw new Error ("Banco de dados vazio.")
+                }else {
+                    res.status(200).send(cliente)
+                }
+                
 
             } catch (error) {
                 
-                throw new Error (res.status(400).send(error))
+                res.status(404).send(`Erro: ${error.message}`)
             }
 
         }

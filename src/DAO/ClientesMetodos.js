@@ -1,5 +1,6 @@
 import Database from "../infra/dbrestaurante.js";
 
+
 class ClientesMetodos {
 
     
@@ -58,6 +59,7 @@ class ClientesMetodos {
     static atualizarClientesporId (cliente, idCliente){
 
         const SQL = `UPDATE clientes SET 
+        id_cliente=?,
         nome_cliente=?,  
         cpf_cliente=?, 
         endereco_cliente=?, 
@@ -66,6 +68,7 @@ class ClientesMetodos {
         WHERE id_cliente=?`
 
         const body = Object.values(cliente)
+        console.log(body)
 
         return new Promise((resolve, reject) => {
             Database.run(SQL, [...body, idCliente], (error) => {
@@ -96,20 +99,20 @@ class ClientesMetodos {
     }
 
 
-    static deletarDadosTabela () {
+    // static deletarDadosTabela () {
 
-        const SQL = `DELETE FROM clientes`
+    //     const SQL = `DELETE * FROM clientes`
 
-        return new Promise((resolve, reject) => {
-            Database.run(SQL, (error) => {
-                if (error){
-                    reject(`Não foi possível deletar os dados do Cliente: ${error.message}`);
-                } else {
-                    resolve('TODOS o cadastro de clientes foi apagado com sucesso.')                    
-                }
-            })
-        })
-    }
+    //     return new Promise((resolve, reject) => {
+    //         Database.run(SQL, (error) => {
+    //             if (error){
+    //                 reject(`Não foi possível deletar os dados do Cliente: ${error.message}`);
+    //             } else {
+    //                 resolve('TODOS o cadastro de clientes foi apagado com sucesso.')                    
+    //             }
+    //         })
+    //     })
+    // }
 
 }
 

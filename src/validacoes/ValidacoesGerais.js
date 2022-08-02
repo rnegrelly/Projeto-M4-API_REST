@@ -3,8 +3,10 @@ class ValidacoesGerais {
     if( typeof parametro == 'string') return true
   }
 
-  static ValidaSeNumero(parametro){
-    if( typeof parametro == 'number') return true
+  static ValidaSeNumero(string){
+    const str = string.split('')
+    const lista = '0123456789.'
+    return str.every(elem => lista.includes(elem))
   }
 
   static ValidaNaoVazio(parametro) {

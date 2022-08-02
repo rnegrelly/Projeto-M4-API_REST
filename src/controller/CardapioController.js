@@ -24,9 +24,10 @@ class CardapioController {
     app.post("/cardapio", async (req, res) => {
      
         const saborValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.sabor_cardapio)
-        const CategoriaValida = CardapioValidacoes.validaCategoria(req.body.categoria_cardapio)
+        const categoriaValida = CardapioValidacoes.validaCategoria(req.body.categoria_cardapio)
+        const precoValido = ValidacoesGerais.ValidaSeNumero(req.body.valor_cardapio)
       
-        if (CategoriaValida && saborValido) {
+        if (categoriaValida && saborValido && precoValido) {
           const item = new CardapioModel(...Object.values(req.body))
           const response = await CardapioMetodos.insereItemCardapio(item)
           res.status(200).json(response)

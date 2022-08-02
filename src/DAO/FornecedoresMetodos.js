@@ -19,13 +19,13 @@ class FornecedoresMetodos extends DAO {
       const resposta = await this.fornecedoresIdListar(id_fornecedores, query);
       return resposta;
     }
-
+    
     static async fornecedoresDelete(id_fornecedores) {
       const query = `DELETE FROM fornecedor WHERE id = ?`;
       const resposta = await this.fornecedoresIdDeletar(id_fornecedores, query);
       return resposta;
     }
-
+  
     static async fornecedoresUpdate(id_fornecedor, nome_fornecedor) {
       const query = `UPDATE fornecedor SET 
         id_fornecedor = ?,
@@ -36,10 +36,9 @@ class FornecedoresMetodos extends DAO {
         email_fornecedor = ?,
         telefone_fornecedor = ?
         WHERE id = ?`
-
+  
       const resposta = await this.fornecedoresIdUpdate(id_fornecedor, nome_fornecedor, query);
       return resposta;
     }
   }
-  
-  export default FornecedoresMetodos;
+export default FornecedoresMetodos;

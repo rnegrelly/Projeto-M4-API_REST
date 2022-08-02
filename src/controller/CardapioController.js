@@ -1,6 +1,7 @@
 import CardapioMetodos from "../DAO/CardapioMetodos.js"
 import CardapioModel from "../model/CardapioModel.js";
 import ValidacoesGerais from "../validacoes/ValidacoesGerais.js";
+import CardapioValidacoes from "../validacoes/CardapioValidacoes.js"
 
 
 class CardapioController {
@@ -21,10 +22,11 @@ class CardapioController {
     })
 
     app.post("/cardapio", async (req, res) => {
-        /*const saborValido = ValidacoesGerais.validaSeString(...Object.values(req.body.sabor_cardapio))
-        const naoVazio = ValidacoesGerais.ValidaNaoVazio(...Object.values(req.body.sabor_cardapio))*/
+     
+        const saborValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.sabor_cardapio)
+        const CategoriaValida = CardapioValidacoes.validaCategoria(req.body.categoria_cardapio)
       
-        if (saborValido) {
+        if (CategoriaValida && saborValido) {
           const item = new CardapioModel(...Object.values(req.body))
           const response = await CardapioMetodos.insereItemCardapio(item)
           res.status(200).json(response)

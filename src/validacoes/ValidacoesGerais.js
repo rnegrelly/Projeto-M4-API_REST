@@ -11,6 +11,9 @@ class ValidacoesGerais {
     if(!parametro == '') return true
   }
 
+  static ValidaStringNaoVazia(parametro) {
+    if(this.validaSeString(parametro) && this.ValidaNaoVazio(parametro)) return true
+  }
   
 }
 

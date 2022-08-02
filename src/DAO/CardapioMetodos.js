@@ -33,7 +33,7 @@ class CardapioMetodos {
 
   static insereItemCardapio(item) {
 
-    const query = `INSERT INTO cardapio (id_cardapio, categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?,?)`
+    const query = `INSERT INTO cardapio (categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?)`
 
     const body = Object.values(item)
 

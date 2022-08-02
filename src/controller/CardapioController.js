@@ -1,5 +1,6 @@
 import CardapioMetodos from "../DAO/CardapioMetodos.js"
 import CardapioModel from "../model/CardapioModel.js";
+import ValidacoesGerais from "../validacoes/ValidacoesGerais.js";
 
 
 class CardapioController {
@@ -20,11 +21,17 @@ class CardapioController {
     })
 
     app.post("/cardapio", async (req, res) => {
-
-      const item = new CardapioModel(...Object.values(req.body))
-      const response = await CardapioMetodos.insereItemCardapio(item)
-      res.status(200).json(response)
-
+        /*const saborValido = ValidacoesGerais.validaSeString(...Object.values(req.body.sabor_cardapio))
+        const naoVazio = ValidacoesGerais.ValidaNaoVazio(...Object.values(req.body.sabor_cardapio))*/
+      
+        if (saborValido) {
+          const item = new CardapioModel(...Object.values(req.body))
+          const response = await CardapioMetodos.insereItemCardapio(item)
+          res.status(200).json(response)
+        } else {
+          res.status(200).json("Verifique o item. Objeto não cadastrado")
+        }
+        
     })
 
     app.put("/cardapio/:id", async (req, res) =>{

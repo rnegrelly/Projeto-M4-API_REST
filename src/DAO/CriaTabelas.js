@@ -1,7 +1,6 @@
-import Database from "../infra/dbrestaurante.js"
+import Database from "../infra/dbrestaurante.js";
 
 class CriaTabelas {
-
   static criaTabelaCliente() {
     const query = `
       CREATE TABLE IF NOT EXISTS clientes(
@@ -12,16 +11,16 @@ class CriaTabelas {
       email_cliente VARCHAR,
       telefone_cliente VARCHAR
       )
-    `
-    return new Promise((resolve, reject)=>{
-      Database.run(query, (e)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve("Tabela Cliente criada com sucesso!")
-          }
-      })
-    })
+    `;
+    return new Promise((resolve, reject) => {
+      Database.run(query, (e) => {
+        if (e) {
+          reject(e.message);
+        } else {
+          resolve("Tabela Cliente criada com sucesso!");
+        }
+      });
+    });
   }
 
   static criaTabelaColaboradores() {
@@ -39,16 +38,16 @@ class CriaTabelas {
       admissao_colaborador VARCHAR,
       demissao_colaborador VARCHAR
       )
-    `
-    return new Promise((resolve, reject)=>{
-      Database.run(query, (e)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve("Tabela Colaboradores criada com sucesso!")
-          }
-      })
-    })
+    `;
+    return new Promise((resolve, reject) => {
+      Database.run(query, (e) => {
+        if (e) {
+          reject(e.message);
+        } else {
+          resolve("Tabela Colaboradores criada com sucesso!");
+        }
+      });
+    });
   }
 
   static criaTabelaCardapio() {
@@ -61,16 +60,16 @@ class CriaTabelas {
       tamanho_cardapio VARCHAR,
       valor_cardapio VARCHAR
       )
-    `
-    return new Promise((resolve, reject)=>{
-      Database.run(query, (e)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve("Tabela Cardápio criada com sucesso!")
-          }
-      })
-    })
+    `;
+    return new Promise((resolve, reject) => {
+      Database.run(query, (e) => {
+        if (e) {
+          reject(e.message);
+        } else {
+          resolve("Tabela Cardápio criada com sucesso!");
+        }
+      });
+    });
   }
 
   static criaTabelaFornecedores() {
@@ -84,20 +83,41 @@ class CriaTabelas {
       email_fornecedor VARCHAR,
       telefone_fornecedor VARCHAR
       )
-    `
-    return new Promise((resolve, reject)=>{
-      Database.run(query, (e)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve("Tabela Fornecedor criada com sucesso!")
-          }
-      })
-    })
+    `;
+    return new Promise((resolve, reject) => {
+      Database.run(query, (e) => {
+        if (e) {
+          reject(e.message);
+        } else {
+          resolve("Tabela Fornecedor criada com sucesso!");
+        }
+      });
+    });
   }
 
-  
-
+  static criaTabelaProdutos() {
+    const query = `
+      CREATE TABLE IF NOT EXISTS produtos(
+      codigoDeBarras_produto VARCHAR PRIMARY KEY,
+      nome_produto VARCHAR,
+      dataDeFabricacao_produto DATETIME,
+      dataDeVencimento_produto DATETIME,
+      valorUnitario_produto VARCHAR,
+      dataDeCompra_produto DATETIME,
+      id_fornecedor INTEGER,
+      CONSTRAINT fk_fornecedor FOREIGN KEY (id_fornecedor) REFERENCES fornecedor (id)
+      )
+    `;
+    return new Promise((resolve, reject) => {
+      Database.run(query, (e) => {
+        if (e) {
+          reject(e.message);
+        } else {
+          resolve("Tabela Produto criada com sucesso!");
+        }
+      });
+    });
+  }
 }
 
 export default CriaTabelas;

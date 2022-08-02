@@ -1,8 +1,8 @@
 import express  from "express";
 import CriaTabelas from "./src/DAO/CriaTabelas.js"
-import ColaboradoresController from "./src/controller/ColaboradoresController.js";
+import ColaboradoresController from "./src/controller/ClientesController.js";
 
-dotenv.config()
+
 
 const app = express();
 const port = 3000;
@@ -14,7 +14,7 @@ app.listen(port, () => {
 app.use(express.json());
 
 CriaTabelas.criaTabelaCardapio();
-CriaTabelas.criaTabelaCliente();
+CriaTabelas.criaTabelaClientes();
 CriaTabelas.criaTabelaFornecedores();
 CriaTabelas.criaTabelaColaboradores();
 

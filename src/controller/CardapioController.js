@@ -31,34 +31,37 @@ class CardapioController {
 
     })
 
-    app.get("/cardapio/:sabor",  async (req, res) => {
-      try {
-
-        const saborValido = CardapioMetodos.ValidaStringNaoVazia(req.body.sabor_cardapio)
-
-        if (saborValido) {
+    app.get("/cardapio/sabor/:sabor",  async (req, res) => {
+      
+        try {
           const response = await CardapioMetodos.listarCardapioPorSabor(req.params.sabor)
           res.status(200).json(response)
-        } else {
-          res.status(200).json({"erro":"Sabor informado não é valido"})
-        }
-        
-      } catch {
-        res.status(400).send("Verique sua requisição")
-      }
-      
+        } catch {
+          res.status(400).json({"erro":"Sabor informado não é valido"})
+        }     
 
     })
 
-    app.get("/cardapio/:id",  async (req, res) => {
+    app.get("/cardapio/categoria/:categoria",  async (req, res) => {
+      
       try {
-        const response = await CardapioMetodos.listarCardapioPorId(req.params.sabor)
+        const response = await CardapioMetodos.listarCardapioPorCategoria(req.params.categoria)
         res.status(200).json(response)
       } catch {
-        res.status(400).send("Verique sua requisição")
+        res.status(400).json({"erro":"Categoria informada não é valida"})
+      }     
+
+    })
+
+    app.get("/cardapio/id/:id",  async (req, res) => {
+      
+      try {
+        const response = await CardapioMetodos.listarCardapioPorId(req.params.id)
+        res.status(200).json(response)
+      } catch {
+        res.status(400).send("Verique sua requisição. Id não encontrado")
       }
       
-
     })
 
     app.post("/cardapio/novo", async (req, res) => {

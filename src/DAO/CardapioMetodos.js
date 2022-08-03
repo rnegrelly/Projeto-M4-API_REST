@@ -7,7 +7,7 @@ class CardapioMetodos extends DatabaseMetodos {
     const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
 
     return new Promise((resolve, reject)=> {
-      Database.get(query, sabor, (e, resultado)=>{
+      Database.all(query, sabor, (e, resultado)=>{
           if(e){
               reject(e.message)
           } else {
@@ -16,6 +16,35 @@ class CardapioMetodos extends DatabaseMetodos {
       })
     })
   }
+
+  static listarCardapioPorCategoria(categoria) {
+    const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`
+
+    return new Promise((resolve, reject)=> {
+      Database.all(query, categoria, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
+    })
+  }
+
+  static listarCardapioPorId(id) {
+    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
+
+    return new Promise((resolve, reject)=> {
+      Database.all(query, id, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
+    })
+  }
+
 
   static listarCardapioResumido(query) {
     return new Promise((resolve, reject)=> {

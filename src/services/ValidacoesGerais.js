@@ -4,9 +4,8 @@ class ValidacoesGerais {
   }
 
   static ValidaSeNumero(string){
-    const str = string.split('')
     const lista = '0123456789.'
-    return str.every(elem => lista.includes(elem))
+    return string.split('').every(elem => lista.includes(elem))
   }
 
   static ValidaNaoVazio(parametro) {

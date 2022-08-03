@@ -38,7 +38,6 @@ class CardapioMetodos extends DatabaseMetodos {
   static atualizarItemCardapio(entidade, id){
     
     const query = `UPDATE cardapio SET 
-      id_cardapio = ?, 
       categoria_cardapio = ?, 
       sabor_cardapio = ?,
       ingredientes_cardapio = ?,

@@ -5,7 +5,6 @@ class CardapioValidacoes extends ValidacoesGerais {
   static verificaCategoria (categoria) {
     const categorias = ['Bebida', 'Pizza Salgada', 'Pizza Doce']
     const valida = categorias.includes(categoria)
-    console.log(categoria)
     return valida
   }
 
@@ -18,6 +17,12 @@ class CardapioValidacoes extends ValidacoesGerais {
     if ((tipo) && (categoriaValida)) {
       return true
     }
+  }
+
+  static validaTamanho (tamanho) {
+    const tamanhos = ['Brotinho', 'Média', 'Grande', 'Família']
+    const valida = tamanhos.includes(tamanho)
+    return valida
   }
 
   

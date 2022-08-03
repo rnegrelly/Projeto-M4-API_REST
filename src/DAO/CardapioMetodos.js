@@ -76,7 +76,7 @@ class CardapioMetodos {
 
   static atualizaValorItemCardapio(item, id) {
     const query = `UPDATE cardapio SET 
-      valor_cardapio = ? 
+      valor_cardapio = ?
       WHERE id_cardapio = ?`
       
     const body = Object.values(item)

@@ -3,8 +3,6 @@ import DatabaseMetodos from "./DatabaseMetodos.js";
 
 class CardapioMetodos extends DatabaseMetodos {
 
-  
-
   static listarCardapioPorSabor(sabor) {
     const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
 

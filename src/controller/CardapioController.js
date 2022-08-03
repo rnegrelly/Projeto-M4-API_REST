@@ -1,6 +1,5 @@
 import CardapioMetodos from "../DAO/CardapioMetodos.js"
 import CardapioModel from "../model/CardapioModel.js";
-import ValidacoesGerais from "../services/ValidacoesGerais.js";
 import CardapioValidacoes from "../services/CardapioValidacoes.js"
 
 
@@ -8,7 +7,7 @@ class CardapioController {
 
   static rotas(app){
 
-    app.get("/cardapio/all",  async (req, res) => {
+    app.get("/cardapio/tudo",  async (req, res) => {
       
       try {
         const query = `SELECT * FROM cardapio`
@@ -23,7 +22,7 @@ class CardapioController {
     app.get("/cardapio/:sabor",  async (req, res) => {
       try {
 
-        const saborValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.sabor_cardapio)
+        const saborValido = CardapioMetodos.ValidaStringNaoVazia(req.body.sabor_cardapio)
 
         if (saborValido) {
           const response = await CardapioMetodos.listarCardapioPorSabor(req.params.sabor)
@@ -50,50 +49,33 @@ class CardapioController {
 
     })
 
-    app.post("/cardapio", async (req, res) => {
-      try{
-        const saborValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.sabor_cardapio)
-        const categoriaValida = CardapioValidacoes.validaCategoria(req.body.categoria_cardapio)
-        const precoValido = ValidacoesGerais.ValidaSeNumero(req.body.valor_cardapio)
-        const ingredValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.ingredientes_cardapio)
-        const tamanhoValido = CardapioValidacoes.validaTamanho(req.body.tamanho_cardapio)
+    app.post("/cardapio/novo", async (req, res) => {
+                
+        const body = req.body
+        const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
 
-      
-        if (categoriaValida && saborValido && precoValido && ingredValido && tamanhoValido) {
+        if (itemValido) {
           const item = new CardapioModel(...Object.values(req.body))
           const response = await CardapioMetodos.insereItemCardapio(item)
           res.status(201).json(response)
         } else {
-          res.status(201).json("Verifique o item. Objeto não cadastrado")
+          res.status(401).json("Verifique o item. Objeto não cadastrado")
         }
-      } catch {
-
-          res.status(400).json("Verifique sua requisição")
-      }
-        
-        
+              
     })
 
     app.put("/cardapio/:id", async (req, res) =>{
-
-      try {
-        const saborValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.sabor_cardapio)
-      const categoriaValida = CardapioValidacoes.validaCategoria(req.body.categoria_cardapio)
-      const precoValido = ValidacoesGerais.ValidaSeNumero(req.body.valor_cardapio)
-      const ingredValido = ValidacoesGerais.ValidaStringNaoVazia(req.body.ingredientes_cardapio)
-      const tamanhoValido = CardapioValidacoes.validaTamanho(req.body.tamanho_cardapio)
       
-      if (categoriaValida && saborValido && precoValido && ingredValido && tamanhoValido) {      
+      const body = req.body
+      const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
+    
+      if (itemValido) {   
         const item = new CardapioModel(...Object.values(req.body))
         const response = CardapioMetodos.atualizarItemCardapio(item, req.params.id)
         res.status(201).json(response)
       } else {
-        res.status(200).json("Verifique o item. Objeto não atualizado")
+        res.status(401).json("Verifique o item. Objeto não atualizado")
       }
-      } catch {
-        res.status(400).json("Verifique sua requisição")
-      }
-
       
     })
 

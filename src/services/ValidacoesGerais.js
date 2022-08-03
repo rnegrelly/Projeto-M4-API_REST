@@ -4,7 +4,7 @@ class ValidacoesGerais {
   }
 
   static ValidaSeNumero(string){
-    const lista = '0123456789.'
+    const lista = '0123456789.,R$'
     return string.split('').every(elem => lista.includes(elem))
   }
 

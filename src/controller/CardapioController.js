@@ -19,6 +19,18 @@ class CardapioController {
 
     })
 
+    app.get("/cardapio/resumo",  async (req, res) => {
+      
+      try {
+        const query = `SELECT sabor_cardapio, tamanho_cardapio, valor_cardapio FROM cardapio`
+        const response = await CardapioMetodos.listar(query)
+        res.status(200).json(response)
+      } catch {
+        res.status(400).send("Verique sua requisição")
+      }  
+
+    })
+
     app.get("/cardapio/:sabor",  async (req, res) => {
       try {
 
@@ -81,7 +93,7 @@ class CardapioController {
 
 
   app.delete("/cardapio/:id", async (req, res) => {
-    
+
       try {                
         const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)
         if(!item){

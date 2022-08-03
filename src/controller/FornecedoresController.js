@@ -26,10 +26,8 @@ class FornecedoresController {
 
     app.post("/fornecedores", async (req, res)=>{
       const fornecedores = new FornecedoresModel(...Object.values(req.body))
-        console.log("const fornecedores" + fornecedores)
       const response = await FornecedoresMetodos.fornecedoresInserir(fornecedores)
-        console.log("const response" + response)
-          
+    
         res.status(201).json(response)
 })
 
@@ -49,9 +47,7 @@ class FornecedoresController {
             throw new Error("Erro, tente novamente.")
   }
             res.status(200).json(fornecedores)
-
-          } catch (error){    
-            console.log(error)
+          }catch (error){    
               res.status(404).json({Error: error.message})
           }            
         })

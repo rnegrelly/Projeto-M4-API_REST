@@ -1,7 +1,7 @@
 import Database from "../infra/dbrestaurante.js";
 
 class CriaTabelas {
-  static criaTabelaCliente() {
+  static criaTabelaClientes() {
     const query = `
       CREATE TABLE IF NOT EXISTS clientes(
       id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,9 +13,9 @@ class CriaTabelas {
       )
     `;
     return new Promise((resolve, reject) => {
-      Database.run(query, (e) => {
-        if (e) {
-          reject(e.message);
+      Database.run(query, (erro) => {
+        if (erro) {
+          reject(erro.message);
         } else {
           resolve("Tabela Cliente criada com sucesso!");
         }
@@ -40,9 +40,9 @@ class CriaTabelas {
       )
     `;
     return new Promise((resolve, reject) => {
-      Database.run(query, (e) => {
-        if (e) {
-          reject(e.message);
+      Database.run(query, (erro) => {
+        if (erro) {
+          reject(erro.message);
         } else {
           resolve("Tabela Colaboradores criada com sucesso!");
         }
@@ -62,9 +62,9 @@ class CriaTabelas {
       )
     `;
     return new Promise((resolve, reject) => {
-      Database.run(query, (e) => {
-        if (e) {
-          reject(e.message);
+      Database.run(query, (erro) => {
+        if (erro) {
+          reject(erro.message);
         } else {
           resolve("Tabela Cardápio criada com sucesso!");
         }
@@ -85,9 +85,9 @@ class CriaTabelas {
       )
     `;
     return new Promise((resolve, reject) => {
-      Database.run(query, (e) => {
-        if (e) {
-          reject(e.message);
+      Database.run(query, (erro) => {
+        if (erro) {
+          reject(erro.message);
         } else {
           resolve("Tabela Fornecedor criada com sucesso!");
         }

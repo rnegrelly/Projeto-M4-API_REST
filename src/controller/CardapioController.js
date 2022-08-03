@@ -1,7 +1,7 @@
 import CardapioMetodos from "../DAO/CardapioMetodos.js"
 import CardapioModel from "../model/CardapioModel.js";
-import ValidacoesGerais from "../validacoes/ValidacoesGerais.js";
-import CardapioValidacoes from "../validacoes/CardapioValidacoes.js"
+import ValidacoesGerais from "../services/ValidacoesGerais.js";
+import CardapioValidacoes from "../services/CardapioValidacoes.js"
 
 
 class CardapioController {

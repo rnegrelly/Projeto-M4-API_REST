@@ -1,5 +1,5 @@
 
-import ClientesModel from "../models/ClientesModel.js"
+import ClientesModel from "../model/ClientesModel.js"
 import ClientesMetodos from "../DAO/ClientesMetodos.js"
 
 class ClientesController {
@@ -19,7 +19,7 @@ class ClientesController {
             }
   
         })
-
+        
         //listar clientes por id
         app.get("/clientes/:id_cliente", async (req, res) => {
 
@@ -32,6 +32,46 @@ class ClientesController {
             }
   
         })
+
+        //listar cliente e telefone por id
+        app.get("/clientes/tel/:id_cliente", async (req, res) => {
+
+            try {                
+                const resposta = await ClientesMetodos.listarClientesETelPorId(req.params.id_cliente)
+                res.status(200).send(resposta);
+
+            } catch (error) {
+                res.status(404).send('O ID informado não existe')
+            }
+  
+        })
+       
+        //listar cliente e CPF por id
+        app.get("/clientes/cpf/:id_cliente", async (req, res) => {
+
+            try {                
+                const resposta = await ClientesMetodos.listarClientesCPFPorId(req.params.id_cliente)
+                res.status(200).send(resposta);
+
+            } catch (error) {
+                res.status(404).send('O ID informado não existe')
+            }
+  
+        })
+
+        //listar cliente e endereço por id
+        app.get("/clientes/end/:id_cliente", async (req, res) => {
+
+            try {                
+                const resposta = await ClientesMetodos.listarClientesEEndPorId(req.params.id_cliente)
+                res.status(200).send(resposta);
+
+            } catch (error) {
+                res.status(404).send('O ID informado não existe')
+            }
+  
+        })    
+        
         
         //cadastrar clientes
         app.post("/clientes", async (req, res) => {

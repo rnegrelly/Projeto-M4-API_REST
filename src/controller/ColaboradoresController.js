@@ -25,10 +25,15 @@ class ColaboradoresController {
 
     app.post("/colaboradores", async (req, res) => {
       try{
-        const colaborador = new ColaboradoresModel(...Object.values(req.body));
-        if (!colaborador) {
-          res.status(204).json(`Sem retorno para o endereço informado.`)
+        if(Object.values(...req.body) === null){
+          res.status(400).json({
+            error: 'Requisição inválida.',
+            message: 'Corpo da requisição inválida ou incompleta'
+          })
         }
+        const colaborador = new ColaboradoresModel(...Object.values(req.body));
+        console.log(Object.values(req.body))
+        
         const response = await ColaboradoresMetodos.cadastrarColaboradores(colaborador);
         res.status(200).json(response);
       } catch(error){

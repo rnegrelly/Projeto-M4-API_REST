@@ -27,6 +27,8 @@ class DatabaseMetodos {
     })
   }
 
+  
+
 }
 
 export default DatabaseMetodos;

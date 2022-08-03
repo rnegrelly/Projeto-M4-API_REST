@@ -34,7 +34,7 @@ class ClientesController {
         })
         
         //cadastrar clientes
-        app.post("/clientes",  async (req, res) => {
+        app.post("/clientes", async (req, res) => {
             
             try{
                 const cliente = new ClientesModel(...Object.values(req.body));

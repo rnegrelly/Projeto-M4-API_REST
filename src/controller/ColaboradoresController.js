@@ -72,6 +72,18 @@ class ColaboradoresController {
       }
     })
 
+    app.delete("/colaboradores", async (req,res) => {
+      try{
+        const response = await ColaboradoresMetodos.limparColaboradores();
+        res.status(202).json(response);
+      } catch(error) {
+        res.status(400).json({
+          error: true,
+          Mensagem: 'Endereço não encontrado.'
+        })
+      }
+    })
+
   }
 
 }

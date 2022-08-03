@@ -1,8 +1,7 @@
 import express  from "express";
-import CriaTabelas from "./src/DAO/CriaTabelas.js"
-import * as dotenv from "dotenv"
+import CriaTabelas from "./src/DAO/CriaTabelas.js";
+import * as dotenv from "dotenv";
 import ColaboradoresController from "./src/controller/ColaboradoresController.js";
-import CardapioMetodos from "./src/controller/CardapioController.js"
 import CardapioController from "./src/controller/CardapioController.js";
 
 dotenv.config()

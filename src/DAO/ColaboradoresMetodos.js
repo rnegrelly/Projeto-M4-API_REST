@@ -84,7 +84,6 @@ class ColaboradoresMetodos {
     static atualizarColaboradores(colaborador, matricula) {
 
         const query = `UPDATE colaboradores SET 
-        matricula_colaborador=?, 
         nome_colaborador=?,  
         cpf_colaborador=?, 
         endereco_colaborador=?, 
@@ -154,6 +153,20 @@ class ColaboradoresMetodos {
                 }
             })
 
+        })
+    }
+
+    static limparColaboradores() {
+        const query = `TRUNCATE TABLE colaboradores`;
+
+        return new Promise((resolve, reject) => {
+            Database.run(query, (error) => {
+                if (!error) {
+                    resolve('Tabela de colaboradores limpa com sucesso.')
+                } else {
+                    reject(`Erro ao limpar tabela: ${error.message}`)
+                }
+            })
         })
     }
 }

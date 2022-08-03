@@ -20,16 +20,25 @@ class CardapioValidacoes extends ValidacoesGerais {
   }
 
   static validaTamanho (tamanho) {
-    const tamanhos = ['Brotinho', 'Média', 'Grande', 'Família']
+    const tamanhos = ['Brotinho', 'Média', 'Grande', 'Família', 'Lata', "1 litro", '2 litros', '400ml',]
     const valida = tamanhos.includes(tamanho)
     return valida
   }
 
-  
-  
+  static validaNovoItem (sabor, categoria, valor, ingredientes, tamanho) {
+    const saborValido = this.ValidaStringNaoVazia(sabor)
+    const categoriaValida = this.validaCategoria(categoria)
+    const precoValido = this.ValidaSeNumero(valor)
+    const ingredValido = this.ValidaStringNaoVazia(ingredientes)
+    const tamanhoValido = this.validaTamanho(tamanho)
 
-  
+    if (categoriaValida && saborValido && precoValido && ingredValido && tamanhoValido) { 
+      return true 
+    } else {
+      return false
+    }
 
+  }
 
 }
 

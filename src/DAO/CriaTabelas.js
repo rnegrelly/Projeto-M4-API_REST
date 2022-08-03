@@ -2,7 +2,11 @@ import Database from "../infra/dbrestaurante.js"
 
 class CriaTabelas {
 
+<<<<<<< HEAD
   static criaTabelaClientes() {
+=======
+  static criaTabelaCliente() {
+>>>>>>> bb5ec2c98380070b088b80c8c05cc1980f483882
     const query = `
       CREATE TABLE IF NOT EXISTS clientes(
       id_cliente INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,9 +18,15 @@ class CriaTabelas {
       )
     `
     return new Promise((resolve, reject)=>{
+<<<<<<< HEAD
       Database.run(query, (erro)=>{
           if(erro){
               reject(erro.message)
+=======
+      Database.run(query, (e)=>{
+          if(e){
+              reject(e.message)
+>>>>>>> bb5ec2c98380070b088b80c8c05cc1980f483882
           } else {
               resolve("Tabela Cliente criada com sucesso!")
           }
@@ -41,9 +51,15 @@ class CriaTabelas {
       )
     `
     return new Promise((resolve, reject)=>{
+<<<<<<< HEAD
       Database.run(query, (erro)=>{
           if(erro){
               reject(erro.message)
+=======
+      Database.run(query, (e)=>{
+          if(e){
+              reject(e.message)
+>>>>>>> bb5ec2c98380070b088b80c8c05cc1980f483882
           } else {
               resolve("Tabela Colaboradores criada com sucesso!")
           }
@@ -63,9 +79,15 @@ class CriaTabelas {
       )
     `
     return new Promise((resolve, reject)=>{
+<<<<<<< HEAD
       Database.run(query, (erro)=>{
           if(erro){
               reject(erro.message)
+=======
+      Database.run(query, (e)=>{
+          if(e){
+              reject(e.message)
+>>>>>>> bb5ec2c98380070b088b80c8c05cc1980f483882
           } else {
               resolve("Tabela Cardápio criada com sucesso!")
           }
@@ -86,9 +108,15 @@ class CriaTabelas {
       )
     `
     return new Promise((resolve, reject)=>{
+<<<<<<< HEAD
       Database.run(query, (erro)=>{
           if(erro){
               reject(erro.message)
+=======
+      Database.run(query, (e)=>{
+          if(e){
+              reject(e.message)
+>>>>>>> bb5ec2c98380070b088b80c8c05cc1980f483882
           } else {
               resolve("Tabela Fornecedor criada com sucesso!")
           }

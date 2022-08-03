@@ -8,7 +8,6 @@ const Database = new sqlite3.Database(filePath);
 
 export default Database;
 
-
 // export const Database = {
 
 //     cliente: [], //Renato

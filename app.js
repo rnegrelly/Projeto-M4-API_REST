@@ -2,7 +2,7 @@ import express  from "express";
 import CriaTabelas from "./src/DAO/CriaTabelas.js"
 import * as dotenv from "dotenv"
 import ColaboradoresController from "./src/controller/ColaboradoresController.js";
-import FornecedoresControllers from "./src/controller/FornecedoresController.js";
+import FornecedoresController from "./src/controller/FornecedoresController.js";
 
 dotenv.config()
 
@@ -21,4 +21,4 @@ CriaTabelas.criaTabelaFornecedores();
 CriaTabelas.criaTabelaColaboradores();
 
 ColaboradoresController.rotas(app);
-FornecedoresControllers.rotas(app);
+FornecedoresController.rotas(app);

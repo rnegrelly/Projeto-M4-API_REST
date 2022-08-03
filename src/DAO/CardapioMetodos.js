@@ -1,21 +1,9 @@
 import Database from "../infra/dbrestaurante.js";
+import DatabaseMetodos from "./DatabaseMetodos.js";
 
-class CardapioMetodos {
+class CardapioMetodos extends DatabaseMetodos {
 
-  static listarCardapio() {
-
-    const query = `SELECT * FROM cardapio`
-
-    return new Promise((resolve, reject)=> {
-      Database.all(query, (e, resultado)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve(resultado)
-          }
-      })
-    })
-  }
+  
 
   static listarCardapioPorSabor(sabor) {
     const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`

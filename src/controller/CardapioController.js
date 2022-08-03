@@ -8,14 +8,23 @@ class CardapioController {
 
   static rotas(app){
 
-    app.get("/cardapio",  async (req, res) => {
+    app.get("/cardapio/all",  async (req, res) => {
 
-      const response = await CardapioMetodos.listarCardapio()
+      const query = `SELECT * FROM cardapio`
+
+      const response = await CardapioMetodos.listar(query)
       res.status(200).json(response)
 
     })
 
     app.get("/cardapio/:sabor",  async (req, res) => {
+      
+      const response = await CardapioMetodos.listarCardapioPorSabor(req.params.sabor)
+      res.status(200).json(response)
+
+    })
+
+    app.get("/cardapio/:id",  async (req, res) => {
       const response = await CardapioMetodos.listarCardapioPorSabor(req.params.sabor)
       res.status(200).json(response)
 

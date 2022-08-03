@@ -1,3 +1,5 @@
+import Database from "../infra/dbrestaurante.js"
+
 class DatabaseMetodos {
 
   static activePragma(){
@@ -9,6 +11,19 @@ class DatabaseMetodos {
         } else {
             console.log("Chaves estrangeiras estão ativas")
         }
+    })
+  }
+
+  static listar(query) {
+
+    return new Promise((resolve, reject)=> {
+      Database.all(query, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
     })
   }
 

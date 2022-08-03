@@ -100,47 +100,22 @@ class ColaboradoresMetodos {
 
         const verificaMatricula = [...body];
         try{
-            if (verificaMatricula[0] === parseInt(matricula)) {
                 return new Promise((resolve, reject) => {
                     Database.run(query, ...body, matricula, (error) => {
                         if (!error) {
                             resolve('Colaborador atualizado com sucesso.');
                         } else {
-                            reject(`Não foi possível atualizar os dados do colaborador: "${error}" - Colaborador não existente.`);
+                            reject(`Não foi possível atualizar os dados do colaborador: ${error} - Colaborador não existente.`);
                         }
                     })
                 })
-            } else {
-                throw new Error (`Não é possível alterar a matrícula de um colaborador.`)
-            }
         } catch(error) {
             throw new Error(error)
         }
 
     }
 
-    static alterarCamposColaborador(colaborador, matricula) {
-
-        const query = `UPDATE colaboradores SET 
-        cargo_colaborador=?, 
-        salario_colaborador=?, 
-        demissao_colaborador=? 
-        WHERE matricula_colaborador=?`;
-
-        const body = Object.values(colaborador)
-
-        return new Promise((resolve, reject) => {
-            Database.run(query, ...body, matricula, (error) => {
-                if (!error) {
-                    resolve(`Colaborador alterado com sucesso.`)
-                } else {
-                    reject(`Não foi possível alterar os campos do colaborador: ${error.message}`);
-                }
-            })
-        })
-    }
-
-    static descadastrarColaborador(matricula) {
+    static deletarColaborador(matricula) {
         const query = `DELETE FROM colaboradores WHERE matricula_colaborador=?`;
 
         return new Promise((resolve, reject) => {
@@ -149,7 +124,7 @@ class ColaboradoresMetodos {
                 if (!error) {
                     resolve(`Colaborador matrícula ${matricula} excluído com sucesso.`);
                 } else {
-                    reject(`Colaborador matrícula ${matricula} não encontrado.`)
+                    reject(`Colaborador matrícula ${matricula} não encontrado: ${error.message}`)
                 }
             })
 
@@ -157,7 +132,7 @@ class ColaboradoresMetodos {
     }
 
     static limparColaboradores() {
-        const query = `TRUNCATE TABLE colaboradores`;
+        const query = `DROP TABLE colaboradores`;
 
         return new Promise((resolve, reject) => {
             Database.run(query, (error) => {

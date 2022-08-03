@@ -9,9 +9,9 @@ class ColaboradoresController {
         res.status(200).json(response);
     })
 
-    app.get("/colaboradores/:matricula_colaborador", async (req, res) => {
+    app.get("/colaboradores/:id", async (req, res) => {
         try{
-          const matricula = req.params.matricula_colaborador;
+          const matricula = req.params.id;
           const response = await ColaboradoresMetodos.listarColaboradoresPorMatricula(matricula);
           if(response) {
             res.status(200).json(response);
@@ -51,24 +51,14 @@ class ColaboradoresController {
         }
     })
 
-    app.patch("/colaboradores/:matricula_colaborador", async (req, res) => {
+    app.delete("/colaboradores/:id", async (req, res) => {
       try{
-        const matricula = req.params.matricula_colaborador;
-        const envio = Object.values(req.body);
-        const response = await ColaboradoresMetodos.alterarCamposColaborador(envio, matricula);
-        res.status(200).json(response);
-      } catch(error) {
-        res.status(400).send(error);
-      }
-    })
-
-    app.delete("/colaboradores/:matricula_colaborador", async (req, res) => {
-      try{
-        const matricula = req.params.matricula_colaborador;
-        const response = await ColaboradoresMetodos.descadastrarColaborador(matricula);
+        const matricula = req.params.id;
+        const response = await ColaboradoresMetodos.deletarColaborador(matricula);
         res.status(202).json(response);
       } catch(error) {
-        res.status(404).json(`Impossível descadastrar colaborador: ${error}`);
+        res.status(404).json({msg: 'Erro ao excluir colaborador',
+        error: error});
       }
     })
 

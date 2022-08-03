@@ -69,7 +69,7 @@ class CardapioMetodos extends DatabaseMetodos {
           if(e){
             reject(e.message)
           } else {
-            resolve({error: false, message: "Cadastrado com sucesso!"})
+            resolve({message: "Cadastrado com sucesso!"})
           }
         })
       })

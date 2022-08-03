@@ -95,7 +95,7 @@ class CardapioController {
     })
 
 
-  app.delete("/cardapio/:id", async (req, res) => {
+  app.delete("/cardapio/delete/:id", async (req, res) => {
 
       try {                
         const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)

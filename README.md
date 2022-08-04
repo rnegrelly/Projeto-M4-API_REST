@@ -245,12 +245,12 @@ Modelo de requisição para o método GET
 
 ```
 {
-    "nome_fornecedor": "Luiz Inácio Lula da Silva",
-    "cnpj_fornecedor": "24.543.256/0001-38",
-    "endereco_fornecedor": "Rua fora bolsonario",
-    "ramo_fornecedor": "Bebidas artesanais",
-    "email_fornecedor": "lulalivre@gmail.com",
-    "telefone_fornecedor": "(83)3464-8575"
+  	"nome_fornecedor": "Layse Mayanne",
+        "cnpj_fornecedor": "44.438.256/0001-38",
+        "endereco_fornecedor": "Rua cimento nobre 405",
+        "ramo_fornecedor": "Atacadista",
+        "email_fornecedor": "atacados@gmail.com",
+        "telefone_fornecedor": "(83)3364-8575"
 }
 
 ```

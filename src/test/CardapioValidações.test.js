@@ -1,5 +1,73 @@
 import CardapioValidacoes from "../services/CardapioValidacoes.js";
-import ValidacoesGerais from "../services/ValidacoesGerais.js"
+
+// testa validaSeString
+test("Verifica se o dado interido é do tipo string", () => {
+  expect(CardapioValidacoes.validaCategoria("Bebida")).toBe(true);
+});
+
+test("Verifica se o dado interido é do tipo string", () => {
+  expect(CardapioValidacoes.validaCategoria("")).toBe(undefined);
+});
+
+test("Verifica se o dado interido é do tipo string", () => {
+  expect(CardapioValidacoes.validaCategoria(true)).toBe(undefined);
+});
+
+test("Verifica se o dado interido é do tipo string", () => {
+  expect(CardapioValidacoes.validaCategoria(1245)).toBe(undefined);
+});
+
+// testa ValidaSeNumero
+
+test("Verifica se o dado interido possui apenas os caracteres <0123456789.,R$>", () => {
+  expect(CardapioValidacoes.ValidaSeNumero(1245)).toBe(false);
+});
+
+test("Verifica se o dado interido possui apenas os caracteres <0123456789.,R$>", () => {
+  expect(CardapioValidacoes.ValidaSeNumero('')).toBe(false);
+});
+
+
+test("Verifica se o dado interido possui apenas os caracteres <0123456789.,R$>", () => {
+  expect(CardapioValidacoes.ValidaSeNumero("1245")).toBe(true);
+});
+
+test("Verifica se o dado interido possui apenas os caracteres <0123456789.,R$>", () => {
+  expect(CardapioValidacoes.ValidaSeNumero("R$12,45")).toBe(true);
+});
+
+test("Verifica se o dado interido possui apenas os caracteres <0123456789.,R$>", () => {
+  expect(CardapioValidacoes.ValidaSeNumero("R$12.45")).toBe(true);
+});
+
+// testa ValidaNaoVazio
+
+test("Verifica se o dado interido não é uma string vazia", () => {
+  expect(CardapioValidacoes.ValidaNaoVazio("R$12.45")).toBe(true);
+});
+
+test("Verifica se o dado interido não é uma string vazia", () => {
+  expect(CardapioValidacoes.ValidaNaoVazio("Mariana")).toBe(true);
+});
+
+test("Verifica se o dado interido não é uma string vazia", () => {
+  expect(CardapioValidacoes.ValidaNaoVazio("")).toBe(undefined);
+});
+
+//testa ValidaStringNaoVazia
+
+test("Verifica se o dado interido não é uma string vazia", () => {
+  expect(CardapioValidacoes.ValidaStringNaoVazia("")).toBe(undefined);
+});
+
+test("Verifica se o dado interido não é uma string vazia", () => {
+  expect(CardapioValidacoes.ValidaStringNaoVazia(12548)).toBe(undefined);
+});
+
+test("Verifica se o dado interido não é uma string vazia", () => {
+  expect(CardapioValidacoes.ValidaStringNaoVazia("Mariana")).toBe(true);
+});
+
 
 //testa validação de categoria
 
@@ -120,3 +188,4 @@ test("Verifica se o novo item inserido está correto", () => {
 test("Verifica se o novo item inserido está correto", () => {
   expect(CardapioValidacoes.validaNovoItem("CHocolate", "Pizza ce", "Cinquenta", "Linguiça calabresa fatiada, cebola, oregano", "")).toBe(false);
 });
+

@@ -1,4 +1,7 @@
-class FornecedoresValidacao {
+import ValidacoesGerais from "./ValidacoesGerais.js";
+
+class FornecedoresValidacao extends ValidacoesGerais {
+    
     static checkNome(nome){
             if (nome <= 5) {
             return false

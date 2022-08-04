@@ -1,6 +1,7 @@
 
 import ClientesModel from "../model/ClientesModel.js"
 import ClientesMetodos from "../DAO/ClientesMetodos.js"
+import ValidaCliente from "../services/validacaoClientes.js";
 
 class ClientesController {
 
@@ -23,7 +24,8 @@ class ClientesController {
         //listar clientes por id
         app.get("/clientes/:id_cliente", async (req, res) => {
 
-            try {                
+            try {      
+                          
                 const resposta = await ClientesMetodos.listarClientesPorId(req.params.id_cliente)
                 res.status(200).send(resposta);
 
@@ -75,15 +77,29 @@ class ClientesController {
         
         //cadastrar clientes
         app.post("/clientes", async (req, res) => {
-            
+                        
             try{
-                const cliente = new ClientesModel(...Object.values(req.body));
-                const resposta = await ClientesMetodos.cadastrarClientes(cliente);
-                res.status(200).send(resposta);
+                const cpfvalido = ValidaCliente.validacpf(req.body.cpf_cliente)
+                const nomevalido = ValidaCliente.validaNome(req.body.nome_cliente)
+                const emailvalido = ValidaCliente.validaEmail(req.body.email_cliente)
+                const telefonevalido = ValidaCliente.validaTelefone(req.body.telefone_cliente)
+
+                
+
+                if (cpfvalido && nomevalido && emailvalido && telefonevalido) {
+
+                    const cliente = new ClientesModel(...Object.values(req.body));
+                    const resposta = await ClientesMetodos.cadastrarClientes(cliente);
+                    
+                    res.status(200).send(resposta);
+
+                } else {
+                    res.status(400).json(`Erro: ${error.message}`);
+                }
 
               } catch(error) {
 
-                res.status(400).send(`${error}`);
+                res.status(400).json(`Erro: ${error.message}`);
 
               }
             
@@ -93,16 +109,26 @@ class ClientesController {
         app.put("/clientes/:id_cliente", async (req, res) => {
 
             try{
-                const cliente = new ClientesModel(...Object.values(req.body));
-                const resposta = await ClientesMetodos.atualizarClientesporId(cliente, req.params.id_cliente);
-                
-                if(resposta){
-                 res.status(201).json(resposta);   
+
+                const cpfvalido = ValidaCliente.validacpf(req.body.cpf_cliente)
+                const nomevalido = ValidaCliente.validaNome(req.body.nome_cliente)
+                const emailvalido = ValidaCliente.validaEmail(req.body.email_cliente)
+                const telefonevalido = ValidaCliente.validaTelefone(req.body.telefone_cliente)
+
+                if (cpfvalido && nomevalido && emailvalido && telefonevalido) {
+
+                    const cliente = new ClientesModel(...Object.values(req.body));
+                    const resposta = await ClientesMetodos.atualizarClientesporId(cliente, req.params.id_cliente);
+                    
+                    
+                     res.status(201).json(resposta);   
+    
 
                 } else {
-                 res.status(404).json("O ID informado não existe.")
-
-                }                          
+                    res.status(400).json(`Erro: ${error.message}`);  
+    
+                }
+                         
 
               } catch(error) {
                 res.status(403).json(`${error}`)
@@ -112,7 +138,7 @@ class ClientesController {
 
         //deletar cliente por id
         app.delete("/clientes/:id_cliente", async (req, res) => {
-
+            
             try {
                 const cliente = await ClientesMetodos.deletarClientesporId(req.params.id_cliente);
 

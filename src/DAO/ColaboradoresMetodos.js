@@ -22,12 +22,13 @@ class ColaboradoresMetodos {
 
     /**
      * 
-     * @param (matricula)
-     * @returns (1 coluna da tabela colaborador)
+     * @param {*} req.params.matricula_colaborador
+     * @returns (Colaborador da matrícula informada)
      */
     static listarColaboradoresPorMatricula(matricula) {
 
         const query = `SELECT * FROM colaboradores WHERE matricula_colaborador=?`;
+        
         return new Promise((resolve, reject) => {
             try {
                 Database.get(query, matricula, (error, response) => {
@@ -45,7 +46,7 @@ class ColaboradoresMetodos {
 
     /**
      * 
-     * @param (req.body) 
+     * @param {*} req.body 
      * @returns (Popula a tabela colaboradores)
      */
     static cadastrarColaboradores(colaborador) {
@@ -78,8 +79,9 @@ class ColaboradoresMetodos {
 
     /**
      * 
-     * @param (req.params.id)
-     * @returns (update do colaborador por id)
+     * @param {*} req.body 
+     * @param {*} req.params.matricula_colaborador 
+     * @returns (Atualiza o usuario {matricula} no banco.)
      */
     static atualizarColaboradores(colaborador, matricula) {
 
@@ -99,22 +101,27 @@ class ColaboradoresMetodos {
         const body = Object.values(colaborador);
 
         const verificaMatricula = [...body];
-        try{
-                return new Promise((resolve, reject) => {
-                    Database.run(query, ...body, matricula, (error) => {
-                        if (!error) {
-                            resolve('Colaborador atualizado com sucesso.');
-                        } else {
-                            reject(`Não foi possível atualizar os dados do colaborador: ${error} - Colaborador não existente.`);
-                        }
-                    })
+        try {
+            return new Promise((resolve, reject) => {
+                Database.run(query, ...body, matricula, (error) => {
+                    if (!error) {
+                        resolve('Colaborador atualizado com sucesso.');
+                    } else {
+                        reject(`Não foi possível atualizar os dados do colaborador: ${error} - Colaborador não existente.`);
+                    }
                 })
-        } catch(error) {
+            })
+        } catch (error) {
             throw new Error(error)
         }
 
     }
 
+    /**
+     * 
+     * @param {*} matricula 
+     * @returns (Exclui o registro do colaborador da matrícula informada.)
+     */
     static deletarColaborador(matricula) {
         const query = `DELETE FROM colaboradores WHERE matricula_colaborador=?`;
 
@@ -131,13 +138,17 @@ class ColaboradoresMetodos {
         })
     }
 
+    /**
+     * 
+     * @returns (Apaga a tabela Colaboradores)
+     */
     static limparColaboradores() {
         const query = `DROP TABLE colaboradores`;
 
         return new Promise((resolve, reject) => {
             Database.run(query, (error) => {
                 if (!error) {
-                    resolve('Tabela de colaboradores limpa com sucesso.')
+                    resolve('Tabela de colaboradores limpa com sucesso. Reinicie o servidor para refazer as operações.')
                 } else {
                     reject(`Erro ao limpar tabela: ${error.message}`)
                 }

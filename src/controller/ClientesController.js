@@ -7,7 +7,7 @@ class ClientesController {
 
     static rotas(app){
         
-        //listar todos os clientes
+
         app.get("/clientes", async (req, res) => {
             
             try {
@@ -21,7 +21,7 @@ class ClientesController {
   
         })
         
-        //listar clientes por id
+
         app.get("/clientes/:id_cliente", async (req, res) => {
 
             try {      
@@ -35,7 +35,7 @@ class ClientesController {
   
         })
 
-        //listar cliente e telefone por id
+
         app.get("/clientes/tel/:id_cliente", async (req, res) => {
 
             try {                
@@ -48,7 +48,7 @@ class ClientesController {
   
         })
        
-        //listar cliente e CPF por id
+   
         app.get("/clientes/cpf/:id_cliente", async (req, res) => {
 
             try {                
@@ -61,7 +61,7 @@ class ClientesController {
   
         })
 
-        //listar cliente e endereço por id
+   
         app.get("/clientes/end/:id_cliente", async (req, res) => {
 
             try {                
@@ -74,8 +74,7 @@ class ClientesController {
   
         })    
         
-        
-        //cadastrar clientes
+    
         app.post("/clientes", async (req, res) => {
                         
             try{
@@ -94,7 +93,7 @@ class ClientesController {
                     res.status(200).send(resposta);
 
                 } else {
-                    res.status(400).json(`Erro: ${error.message}`);
+                    res.status(400).json(`Dados invalidos. Verificar dados informados`);
                 }
 
               } catch(error) {
@@ -105,7 +104,7 @@ class ClientesController {
             
         })
         
-        //atualizar clientes por id
+      
         app.put("/clientes/:id_cliente", async (req, res) => {
 
             try{
@@ -121,11 +120,11 @@ class ClientesController {
                     const resposta = await ClientesMetodos.atualizarClientesporId(cliente, req.params.id_cliente);
                     
                     
-                     res.status(201).json(resposta);   
+                    res.status(201).json(resposta);   
     
 
                 } else {
-                    res.status(400).json(`Erro: ${error.message}`);  
+                    res.status(400).json(`Dados invalidos. Verificar dados informados`);  
     
                 }
                          
@@ -136,7 +135,7 @@ class ClientesController {
               }
         })
 
-        //deletar cliente por id
+       
         app.delete("/clientes/:id_cliente", async (req, res) => {
             
             try {

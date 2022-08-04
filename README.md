@@ -109,7 +109,7 @@ Modelo de requisição para o método GET
    }
    
 ```
-> RETORNA - 
+> RETORNA - Produto Selecionando de acordo, o nome escolhido.
 
 ## ROTAS E MÉTODOS Entidade_Cardapio:
 

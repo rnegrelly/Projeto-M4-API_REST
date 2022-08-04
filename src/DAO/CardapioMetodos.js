@@ -1,11 +1,52 @@
 import Database from "../infra/dbrestaurante.js";
+import DatabaseMetodos from "./DatabaseMetodos.js";
 
-class CardapioMetodos {
+class CardapioMetodos extends DatabaseMetodos {
 
-  static listarCardapio() {
+  static listarCardapioPorSabor(sabor) {
+    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
 
-    const query = `SELECT * FROM cardapio`
+    return new Promise((resolve, reject)=> {
+      Database.all(query, sabor, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
+    })
+  }
 
+  static listarCardapioPorCategoria(categoria) {
+    const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`
+
+    return new Promise((resolve, reject)=> {
+      Database.all(query, categoria, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
+    })
+  }
+
+  static listarCardapioPorId(id) {
+    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
+
+    return new Promise((resolve, reject)=> {
+      Database.all(query, id, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
+    })
+  }
+
+
+  static listarCardapioResumido(query) {
     return new Promise((resolve, reject)=> {
       Database.all(query, (e, resultado)=>{
           if(e){
@@ -17,23 +58,9 @@ class CardapioMetodos {
     })
   }
 
-  static listarCardapioPorSabor(sabor) {
-    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
-
-    return new Promise((resolve, reject)=> {
-      Database.get(query, sabor, (e, resultado)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve(resultado)
-          }
-      })
-    })
-  }
-
   static insereItemCardapio(item) {
 
-    const query = `INSERT INTO cardapio (id_cardapio, categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?,?)`
+    const query = `INSERT INTO cardapio (categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?)`
 
     const body = Object.values(item)
 
@@ -42,7 +69,7 @@ class CardapioMetodos {
           if(e){
             reject(e.message)
           } else {
-            resolve({error: false, message: "Cadastrado com sucesso!"})
+            resolve({message: "Cadastrado com sucesso!"})
           }
         })
       })
@@ -52,7 +79,6 @@ class CardapioMetodos {
   static atualizarItemCardapio(entidade, id){
     
     const query = `UPDATE cardapio SET 
-      id_cardapio = ?, 
       categoria_cardapio = ?, 
       sabor_cardapio = ?,
       ingredientes_cardapio = ?,
@@ -76,7 +102,7 @@ class CardapioMetodos {
 
   static atualizaValorItemCardapio(item, id) {
     const query = `UPDATE cardapio SET 
-      valor_cardapio = ? 
+      valor_cardapio = ?
       WHERE id_cardapio = ?`
       
     const body = Object.values(item)

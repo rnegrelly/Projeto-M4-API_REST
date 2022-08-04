@@ -6,17 +6,15 @@ class ProdutosMetodos {
     (
         codigoDeBarras_produto,
         nome_produto,
-        dataDeFabricacao_produto,
-        dataDeVencimento_produto,
-        id_fornecedor,
-        valorUnitario_produto,
-        dataDeCompra_produto)
-    VALUES (?,?,?,?,?,?,?)`;
+        quantidade_produto,
+        dataDeCompra_produto,
+        id_fornecedor)
+    VALUES (?,?,?,?,?)`;
 
-    const body = Object.values(produto);
+    const content = Object.values(produto);
 
     return new Promise((resolve, reject) => {
-      Database.run(query, ...body, (error) => {
+      Database.run(query, ...content, (error) => {
         if (!error) {
           resolve("Produto cadastrado com sucesso.");
         } else {
@@ -42,13 +40,14 @@ class ProdutosMetodos {
     });
   }
 
-  static pesquisarProduto(codigoDeBarras) {
+  static pesquisarProdutoPorEAN(codigoDeBarras) {
     const query = `SELECT * FROM produtos WHERE codigoDeBarras_produto=${codigoDeBarras}`;
 
     return new Promise((resolve, reject) => {
       Database.all(query, (error, response) => {
         if (!error) {
-          resolve([response]);
+          const [newResponse] = response;
+          resolve(newResponse);
         } else {
           reject(error.message);
         }
@@ -56,19 +55,47 @@ class ProdutosMetodos {
     });
   }
 
-  static atualizarColaboradores(id) {
-    const query = `UPDATE colaboradores SET 
-    codidoDeBarra_produto = ?,
-    nome_produto = ?,
-    dataDeFabricacao_produto = ?,
-    dataDeVencimento_produto = ?,
-    fornecedor_produto = ?,
-    valorUnitario_produto = ?,
-    dataDeCompra_produto = ?
-    WHERE codidoDeBarra_produto = ?`;
+  static pesquisarProdutoPorNome(nome) {
+    const query = `SELECT * FROM produtos WHERE nome_produto LIKE '%${nome}%'`;
 
     return new Promise((resolve, reject) => {
-      Database.run(query, id, (error) => {
+      Database.all(query, (error, response) => {
+        if (!error) {
+          resolve(response);
+        } else {
+          reject(error.message);
+        }
+      });
+    });
+  }
+
+  static pesquisarProdutoPorFornecedor(id_fornecedor) {
+    const query = `SELECT * FROM produtos WHERE id_fornecedor=${id_fornecedor}`;
+
+    return new Promise((resolve, reject) => {
+      Database.all(query, (error, response) => {
+        if (!error) {
+          resolve(response);
+        } else {
+          reject(error.message);
+        }
+      });
+    });
+  }
+
+  static atualizarProduto(ean, produto) {
+    const query = `UPDATE produtos SET 
+    codigoDeBarras_produto = ?,
+    nome_produto = ?,
+    quantidade_produto = ?,
+    id_fornecedor = ?,
+    dataDeCompra_produto = ?
+    WHERE codigoDeBarras_produto = ?`;
+
+    const content = Object.values(produto);
+
+    return new Promise((resolve, reject) => {
+      Database.run(query, ...content, ean, (error) => {
         if (!error) {
           resolve("Produto atualizado com sucesso.");
         } else {

@@ -100,10 +100,8 @@ class CriaTabelas {
       CREATE TABLE IF NOT EXISTS produtos(
       codigoDeBarras_produto VARCHAR PRIMARY KEY,
       nome_produto VARCHAR,
-      dataDeFabricacao_produto DATETIME,
-      dataDeVencimento_produto DATETIME,
-      valorUnitario_produto VARCHAR,
       dataDeCompra_produto DATETIME,
+      quantidade_produto INTEGER,
       id_fornecedor INTEGER,
       CONSTRAINT fk_fornecedor FOREIGN KEY (id_fornecedor) REFERENCES fornecedor (id)
       )

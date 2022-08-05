@@ -79,9 +79,13 @@ class CardapioMetodos extends DatabaseMetodos {
     
   }
 
-  static atualizarItemCardapio(entidade, id){
+  static async atualizarItemCardapio(entidade, id){
+
+    const idValido = await this.listarCardapioPorId(id)
+          
+    if (idValido[0].id_cardapio > 0) {
     
-    const query = `UPDATE cardapio SET 
+      const query = `UPDATE cardapio SET 
       categoria_cardapio = ?, 
       sabor_cardapio = ?,
       ingredientes_cardapio = ?,
@@ -89,36 +93,21 @@ class CardapioMetodos extends DatabaseMetodos {
       valor_cardapio = ? 
       WHERE id_cardapio = ?`
       
-    const body = Object.values(entidade)
+      const body = Object.values(entidade)
     
-    return new Promise((resolve, reject)=>{
-      Database.run(query,[...body, id], (e, result)=>{
-        if(e){
-          reject(e.message)
-        } else {
-          resolve(result)
-        }
+      return new Promise((resolve, reject)=>{
+        Database.run(query,[...body, id], (e, result)=>{
+          if(e){
+            reject(e.message)
+          } else {
+            resolve({message: `Registro com Id ${id} atualizado com sucesso`})
+          }
+        })
       })
-    })
 
-  }
-
-  static atualizaValorItemCardapio(item, id) {
-    const query = `UPDATE cardapio SET 
-      valor_cardapio = ?
-      WHERE id_cardapio = ?`
-      
-    const body = Object.values(item)
-    
-    return new Promise((resolve, reject)=>{
-      Database.run(query,[...body, id], (e, result)=>{
-        if(e){
-          reject(e.message)
-        } else {
-          resolve(result)
-        }
-      })
-    })
+    } else {
+      throw new Error("Id não encontrado")
+    }
   }
 
   static async deletarItemCardapioPorId(id) {
@@ -137,8 +126,10 @@ class CardapioMetodos extends DatabaseMetodos {
               resolve({message: `Registro com Id ${id} deletado com sucesso`})
           }
       })
-    })
+      }) 
 
+    } else {
+      throw new Error("Id não em contrado")
     }    
   }
 }

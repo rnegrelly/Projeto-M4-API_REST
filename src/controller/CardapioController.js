@@ -110,17 +110,20 @@ class CardapioController {
     })
 
      app.put("/cardapio/:id", async (req, res) =>{
-      
-      const body = req.body
-      const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
 
-      if (itemValido) {   
-        const item = new CardapioModel(...Object.values(body))
-        const response = await CardapioMetodos.atualizarItemCardapio(item, req.params.id)
-        res.status(201).json(`A ${body.categoria_cardapio} ${body.sabor_cardapio} foi atualizada com sucesso!`)
-      } else {
-        res.status(401).json("Verifique o item. Objeto não atualizado")
-      }
+        try {
+          const body = req.body
+          const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
+
+          if (itemValido) {   
+          const item = new CardapioModel(...Object.values(body))
+          const response = await CardapioMetodos.atualizarItemCardapio(item, req.params.id)
+          res.status(201).json(response)
+          } 
+        } catch(error) {
+          res.status(404).json({Error:error.message})
+        }
+      
       
     })
 

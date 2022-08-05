@@ -39,7 +39,7 @@ class ColaboradoresController {
             }
         }
       } catch (error) {
-        throw new Error({
+        res.status(400).json({
           Erro: `Erro ao processar requisição.`,
           Mensagem: `Tabela colaboradores não existe. Reinicie o servidor para criá-la novamente.`
         });
@@ -51,26 +51,19 @@ class ColaboradoresController {
         const colaborador = new ColaboradoresModel(...Object.values(req.body));
         
         if (Object.values(colaborador).includes(undefined)) {
-            res.status(400).json({
+          res.status(400).json({
             Erro: 'Erro ao processar requisição.',
             Mensagem: 'Corpo da requisição inválido ou incompleto.'
           })
           return;
         }
         
-        const validaBanco = await ColaboradoresMetodos.listarColaboradoresPorMatricula(1);
         const response = await ColaboradoresMetodos.cadastrarColaboradores(colaborador);
-        console.log(validaBanco)
-        if(!validaBanco.salario.validacoesColaboradores.validaSalario()){
-          res.status(400).json({
-            Erro: `Erro ao processar requisição.`,
-            Mensagem: `O campo salário contém caracteres inválidos.`
-          })
-        }
+        
         res.status(201).json(response);
       } catch (error) {
         res.status(400).json({
-          Erro: `Erro ao processar requisição.`,
+          Erro: `Erro ao processar requisição. AKI`,
           Mensagem: `Tabela colaboradores não existe. Reinicie o servidor para criá-la novamente.`
         });
       }
@@ -135,7 +128,6 @@ class ColaboradoresController {
       try {
         const verificaTabela = await ColaboradoresMetodos.listarColaboradores();
 
-        console.log(typeof verificaTabela)
         if(verificaTabela === []) {
           res.status(404).json({
             Erro: `Erro ao processar requisição.`,

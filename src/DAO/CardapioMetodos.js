@@ -3,65 +3,7 @@ import DatabaseMetodos from "./DatabaseMetodos.js";
 
 class CardapioMetodos extends DatabaseMetodos {
 
-  static listarCardapioPorSabor(sabor) {
-    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
-
-    return new Promise((resolve, reject)=> {
-      Database.all(query, sabor, (e, resultado)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve(resultado)
-          }
-      })
-    })
-  }
-
-  static listarCardapioPorCategoria(categoria) {
-    const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`
-
-    return new Promise((resolve, reject)=> {
-      Database.all(query, categoria, (e, resultado)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve(resultado)
-          }
-      })
-    })
-  }
-
-  static listarCardapioPorId(id) {
-    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
-
-    return new Promise((resolve, reject)=> {
-      Database.all(query, id, (e, resultado)=>{
-
-            
-        if(e){
-              reject(e.message)
-        } else {
-              resolve(resultado)
-        }
-
-      })
-    })
-  }
-
-
-  static listarCardapioResumido(query) {
-    return new Promise((resolve, reject)=> {
-      Database.all(query, (e, resultado)=>{
-          if(e){
-              reject(e.message)
-          } else {
-              resolve(resultado)
-          }
-      })
-    })
-  }
-
-  static insereItemCardapio(item) {
+   static insereItemCardapio(item) {
 
     const query = `INSERT INTO cardapio (categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?)`
 

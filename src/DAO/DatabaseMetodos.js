@@ -27,8 +27,22 @@ class DatabaseMetodos {
     })
   }
 
-  
+  static async listarPorParametro(entidade, parametro, sabor) {
+    
+    const query = `SELECT * FROM ${entidade} WHERE ${parametro} = ?`
 
+    return new Promise((resolve, reject)=> {
+      Database.all(query, sabor, (e, resultado)=>{
+          if(e){
+            reject(e.message)
+          } else {
+            resolve(resultado)
+          }
+      })
+    })
+  }
+
+  
 }
 
 export default DatabaseMetodos;

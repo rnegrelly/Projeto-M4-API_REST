@@ -36,11 +36,14 @@ class CardapioMetodos extends DatabaseMetodos {
 
     return new Promise((resolve, reject)=> {
       Database.all(query, id, (e, resultado)=>{
-          if(e){
+
+            
+        if(e){
               reject(e.message)
-          } else {
+        } else {
               resolve(resultado)
-          }
+        }
+
       })
     })
   }
@@ -118,18 +121,25 @@ class CardapioMetodos extends DatabaseMetodos {
     })
   }
 
-  static deletarItemCardapioPorId(id) {
-    const query = `DELETE FROM cardapio WHERE id_cardapio = ?`
+  static async deletarItemCardapioPorId(id) {
     
-    return new Promise((resolve, reject) => {
+    const idValido = await this.listarCardapioPorId(id)
+    
+   
+    if (idValido[0].id_cardapio > 0) {
+      const query = `DELETE FROM cardapio WHERE id_cardapio = ?`
+       
+      return new Promise((resolve, reject) => {
       Database.run(query, id, (e)=>{
           if(e){
               reject(e.message)
           } else {
-              resolve({erro: false, message: `Registro com Id ${id} deletado com sucesso`})
+              resolve({message: `Registro com Id ${id} deletado com sucesso`})
           }
       })
     })
+
+    }    
   }
 }
 

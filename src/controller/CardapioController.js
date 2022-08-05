@@ -13,8 +13,8 @@ class CardapioController {
         const query = `SELECT * FROM cardapio`
         const response = await CardapioMetodos.listar(query)
         res.status(200).json(response)
-      } catch {
-        res.status(400).send("Verique sua requisição")
+      } catch (error) {
+        res.status(400).send(error)
       }  
 
     })
@@ -25,8 +25,8 @@ class CardapioController {
         const query = `SELECT sabor_cardapio, tamanho_cardapio, valor_cardapio FROM cardapio`
         const response = await CardapioMetodos.listar(query)
         res.status(200).json(response)
-      } catch {
-        res.status(400).send("Verique sua requisição")
+      } catch (error) {
+        res.status(400).send(error)
       }  
 
     })
@@ -35,9 +35,16 @@ class CardapioController {
       
         try {
           const response = await CardapioMetodos.listarCardapioPorSabor(req.params.sabor)
-          res.status(200).json(response)
-        } catch {
-          res.status(400).json({"erro":"Sabor informado não é valido"})
+
+          if (response.length > 0) {
+            res.status(200).json(response)
+          } else {
+            res.status(406).json({Not_Found: `O sabor_cardapio ${req.params.sabor} não foi encontrado em nossa base da dados!`})
+
+          } 
+        } catch  (error) {
+
+          res.status(400).json(error)
         }     
 
     })
@@ -45,10 +52,18 @@ class CardapioController {
     app.get("/cardapio/categoria/:categoria",  async (req, res) => {
       
       try {
-        const response = await CardapioMetodos.listarCardapioPorCategoria(req.params.categoria)
-        res.status(200).json(response)
-      } catch {
-        res.status(400).json({"erro":"Categoria informada não é valida"})
+       
+        const categ = CardapioValidacoes.validaCategoria(req.params.categoria)
+
+        if(categ) {
+          const response = await CardapioMetodos.listarCardapioPorCategoria(req.params.categoria)
+          res.status(200).json(response)
+        } else {
+          throw new Error("Categoria solicitada é inválida!")
+        }
+        
+      } catch(error) {
+        res.status(400).json({Error:error.message})
       }     
 
     })
@@ -56,16 +71,28 @@ class CardapioController {
     app.get("/cardapio/id/:id",  async (req, res) => {
       
       try {
+
         const response = await CardapioMetodos.listarCardapioPorId(req.params.id)
-        res.status(200).json(response)
-      } catch {
-        res.status(400).send("Verique sua requisição. Id não encontrado")
+        
+        if (response.length > 0) {
+          res.status(200).json(response)
+
+        } else {
+
+          res.status(406).json({Error: `O id_cardapio ${req.params.id} não foi encontrado em nossa base da dados!`})
+        }
+        
+        
+      } catch(error) {
+
+        res.status(400).send({error:error.message})
       }
       
     })
 
     app.post("/cardapio/novo", async (req, res) => {
-                
+
+      try {
         const body = req.body
         const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
 
@@ -76,10 +103,13 @@ class CardapioController {
         } else {
           res.status(401).json("Verifique o item. Objeto não cadastrado")
         }
+      } catch  (error) {
+        res.status(401).send({error:error.message})
+      }      
               
     })
 
-    app.put("/cardapio/:id", async (req, res) =>{
+     app.put("/cardapio/:id", async (req, res) =>{
       
       const body = req.body
       const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
@@ -99,10 +129,10 @@ class CardapioController {
 
       try {                
         const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)
-        if(!item){
-            throw new Error("Item não encontrado")
-        }
-        res.status(200).json(item)
+        console.log(item)
+        
+          res.status(200).json(item)
+              
       } catch (error) {    
         res.status(404).json({Error: error.message})
       }

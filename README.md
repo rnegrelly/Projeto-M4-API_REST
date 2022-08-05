@@ -36,7 +36,12 @@ banco, com Promises;
 ![Badge](https://img.shields.io/badge/"path"-"%5E5.0.2"-orange)
 ![Badge](https://img.shields.io/badge/"url"-"%5E5.0.2"-orange)
 
-
+ ## Url para Requisições
+ 
+ HEROKU 
+ ```
+ 	https://restaurante-api-m4.herokuapp.com
+ ```
   
  ## Para instalar o projeto na sua máquina, siga as instruções a seguir usando os comandos descritos:
 

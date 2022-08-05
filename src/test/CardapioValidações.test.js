@@ -1,19 +1,19 @@
 import CardapioValidacoes from "../services/CardapioValidacoes.js";
 
 // testa validaSeString
-test("Verifica se o dado interido é do tipo string", () => {
+test("Verifica se o dado inserido é do tipo string", () => {
   expect(CardapioValidacoes.validaCategoria("Bebida")).toBe(true);
 });
 
-test("Verifica se o dado interido é do tipo string", () => {
+test("Verifica se o dado inserido é do tipo string", () => {
   expect(CardapioValidacoes.validaCategoria("")).toBe(undefined);
 });
 
-test("Verifica se o dado interido é do tipo string", () => {
+test("Verifica se o dado inserido é do tipo string", () => {
   expect(CardapioValidacoes.validaCategoria(true)).toBe(undefined);
 });
 
-test("Verifica se o dado interido é do tipo string", () => {
+test("Verifica se o dado inserido é do tipo string", () => {
   expect(CardapioValidacoes.validaCategoria(1245)).toBe(undefined);
 });
 

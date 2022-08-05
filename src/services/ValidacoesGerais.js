@@ -20,10 +20,6 @@ class ValidacoesGerais {
   static ValidaStringNaoVazia(parametro) {
     if(this.validaSeString(parametro) && this.ValidaNaoVazio(parametro)) return true
   }
-
-  static validaId(id) {
-    
-  }
   
 }
 

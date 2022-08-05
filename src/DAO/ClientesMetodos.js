@@ -32,6 +32,48 @@ class ClientesMetodos {
             })
     })
     }
+
+    static listarClientesETelPorId(idCliente) {
+        const SQL = `SELECT nome_cliente, telefone_cliente FROM clientes WHERE id_cliente=?`
+
+        return new Promise((resolve, reject) => {
+            Database.get(SQL, idCliente, (error, resposta) => {
+                if(error) {
+                    reject(`Erro ao buscar cliente através do id fornecido: ${error.message}`)                                 
+                } else {
+                    resolve(resposta);
+                }
+            })
+    })
+    }
+
+    static listarClientesCPFPorId(idCliente) {
+        const SQL = `SELECT nome_cliente, cpf_cliente FROM clientes WHERE id_cliente=?`
+
+        return new Promise((resolve, reject) => {
+            Database.get(SQL, idCliente, (error, resposta) => {
+                if(error) {
+                    reject(`Erro ao buscar cliente através do id fornecido: ${error.message}`)                                 
+                } else {
+                    resolve(resposta);
+                }
+            })
+    })
+    }
+
+    static listarClientesEEndPorId(idCliente) {
+        const SQL = `SELECT nome_cliente, endereco_cliente FROM clientes WHERE id_cliente=?`
+
+        return new Promise((resolve, reject) => {
+            Database.get(SQL, idCliente, (error, resposta) => {
+                if(error) {
+                    reject(`Erro ao buscar cliente através do id fornecido: ${error.message}`)                                 
+                } else {
+                    resolve(resposta);
+                }
+            })
+    })
+    }    
   
     static cadastrarClientes(clientes) {
         const SQL = `INSERT INTO clientes 

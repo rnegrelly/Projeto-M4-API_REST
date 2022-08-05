@@ -3,6 +3,7 @@ import ValidacoesGerais from "./ValidacoesGerais.js";
 class CardapioValidacoes extends ValidacoesGerais {
 
   static verificaCategoria (categoria) {
+
     const categorias = ['Bebida', 'Pizza Salgada', 'Pizza Doce']
     const valida = categorias.includes(categoria)
     return valida

@@ -219,6 +219,15 @@ Modelo de requisição para o método GET
 ```
 > RETORNA - Mensagem de sucesso: "Cliente atualizado com sucesso."
             Mensagem de erro: "Não foi possível atualizar os dados do Cliente."
+	    
+1. <h4>Validações:</h4>
+
+	- O valor de "nome_cliete" deve conter ao menos 3 caracteres;
+	- O valor de "cpf_cliente" deve conter exatos 11 caracteres;
+	- O valor de "endereco_cliente" deve ser uma string e não pode estar vazia;
+	- O valor de "email_cliente" deve ser uma estrutura de email válida, com "@", e ".com".
+	- O valor de "telefone_cliente" deve conter exatos 11 caracteres; 
+
 
 ## ROTAS E MÉTODOS Entidade_Fornecedores:
 
@@ -236,12 +245,12 @@ Modelo de requisição para o método GET
 
 ```
 {
-    "nome_fornecedor": "Luiz Inácio Lula da Silva",
-    "cnpj_fornecedor": "24.543.256/0001-38",
-    "endereco_fornecedor": "Rua fora bolsonario",
-    "ramo_fornecedor": "Bebidas artesanais",
-    "email_fornecedor": "lulalivre@gmail.com",
-    "telefone_fornecedor": "(83)3464-8575"
+  	"nome_fornecedor": "Layse Mayanne",
+        "cnpj_fornecedor": "44.438.256/0001-38",
+        "endereco_fornecedor": "Rua cimento nobre 405",
+        "ramo_fornecedor": "Atacadista",
+        "email_fornecedor": "atacados@gmail.com",
+        "telefone_fornecedor": "(83)3364-8575"
 }
 
 ```
@@ -283,6 +292,21 @@ Modelo de requisição para o método GET
 
 
 ## Status do Projeto
-![Bagde](https://img.shields.io/badge/Status%20do%20Projeto-finalizando-orange)
+![Bagde](https://img.shields.io/badge/Status%20do%20Projeto-Concluído-orange)
+
+<div align='center'>
+
+## 💻  Time desenvolvedor:
+	
+
+ **Larrissa Lira** - [larrissalira](https://github.com/larrissalira)
+ **Nodja Lima** - [NodjaLima](https://github.com/NodjaLima)
+ **Simone Luiz** -  [SimoneLuiz](https://github.com/SimoneLuiz)
+ **Renato Negrelly** - [rnegrelly](https://github.com/rnegrelly/)
+ **Helder Lucas** -  [devhelderlrs](https://github.com/devhelderlrs)
+
+---
+[⬆ Voltar ao Topo](#api-rest----restaurante)
+
 
 

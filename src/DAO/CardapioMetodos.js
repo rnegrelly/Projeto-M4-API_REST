@@ -23,7 +23,7 @@ class CardapioMetodos extends DatabaseMetodos {
 
   static async atualizarItemCardapio(entidade, id){
 
-    const idValido = await this.listarCardapioPorId(id)
+    const idValido = await this.listarPorParametro('cardapio', "id_cardapio", id)
           
     if (idValido[0].id_cardapio > 0) {
     
@@ -54,7 +54,7 @@ class CardapioMetodos extends DatabaseMetodos {
 
   static async deletarItemCardapioPorId(id) {
     
-    const idValido = await this.listarCardapioPorId(id)
+    const idValido = await this.listarPorParametro('cardapio', "id_cardapio", id)
     
    
     if (idValido[0].id_cardapio > 0) {

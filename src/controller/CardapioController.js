@@ -132,10 +132,9 @@ class CardapioController {
   app.delete("/cardapio/delete/:id", async (req, res) => {
 
       try {                
-        const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)
-        console.log(item)
         
-          res.status(200).json(item)
+        const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)
+        res.status(200).json(item)
               
       } catch (error) {    
         res.status(404).json({Error: error.message})

@@ -35,7 +35,10 @@ class CardapioController {
     app.get("/cardapio/sabor/:sabor",  async (req, res) => {
       
         try {
-          const response = await CardapioMetodos.listarPorParametro('cardapio', 'sabor_cardapio', req.params.sabor)
+
+          const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
+
+          const response = await CardapioMetodos.listarPorParametro(query, req.params.sabor)
 
           if (response.length > 0) {
             res.status(200).json(response)
@@ -57,7 +60,10 @@ class CardapioController {
         const categ = CardapioValidacoes.validaCategoria(req.params.categoria)
 
         if(categ) {
-          const response = await CardapioMetodos.listarPorParametro("cardapio", "categoria_cardapio", req.params.categoria)
+
+          const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`
+          
+          const response = await CardapioMetodos.listarPorParametro(query, req.params.categoria)
           res.status(200).json(response)
         } else {
           throw new Error("Categoria solicitada é inválida!")
@@ -73,7 +79,9 @@ class CardapioController {
       
       try {
 
-        const response = await CardapioMetodos.listarPorParametro('cardapio', "id_cardapio",req.params.id)
+        const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
+
+        const response = await CardapioMetodos.listarPorParametro(query,req.params.id)
         
         if (response.length > 0) {
           res.status(200).json(response)

@@ -3,6 +3,21 @@ import DatabaseMetodos from "./DatabaseMetodos.js";
 
 class CardapioMetodos extends DatabaseMetodos {
 
+  static async listarPorParametro(query, valor) {
+    
+    
+
+    return new Promise((resolve, reject)=> {
+      Database.all(query, valor, (e, resultado)=>{
+          if(e){
+            reject(e.message)
+          } else {
+            resolve(resultado)
+          }
+      })
+    })
+  }
+
    static insereItemCardapio(item) {
 
     const query = `INSERT INTO cardapio (categoria_cardapio, sabor_cardapio, ingredientes_cardapio, tamanho_cardapio, valor_cardapio) VALUES (?,?,?,?,?)`
@@ -23,7 +38,8 @@ class CardapioMetodos extends DatabaseMetodos {
 
   static async atualizarItemCardapio(entidade, id){
 
-    const idValido = await this.listarPorParametro('cardapio', "id_cardapio", id)
+    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
+    const idValido = await this.listarPorParametro(query, id)
           
     if (idValido[0].id_cardapio > 0) {
     
@@ -54,9 +70,9 @@ class CardapioMetodos extends DatabaseMetodos {
 
   static async deletarItemCardapioPorId(id) {
     
-    const idValido = await this.listarPorParametro('cardapio', "id_cardapio", id)
-    
-   
+    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
+    const idValido = await this.listarPorParametro(query, id)
+       
     if (idValido[0].id_cardapio > 0) {
       const query = `DELETE FROM cardapio WHERE id_cardapio = ?`
        

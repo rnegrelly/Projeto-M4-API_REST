@@ -27,22 +27,7 @@ class DatabaseMetodos {
     })
   }
 
-  static async listarPorParametro(entidade, parametro, valor) {
     
-    const query = `SELECT * FROM ${entidade} WHERE ${parametro} = ?`
-
-    return new Promise((resolve, reject)=> {
-      Database.all(query, valor, (e, resultado)=>{
-          if(e){
-            reject(e.message)
-          } else {
-            resolve(resultado)
-          }
-      })
-    })
-  }
-
-  
 }
 
 export default DatabaseMetodos;

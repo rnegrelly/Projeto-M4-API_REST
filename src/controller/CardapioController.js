@@ -8,99 +8,64 @@ class CardapioController {
   static rotas(app){
 
     app.get("/cardapio/tudo",  async (req, res) => {
-      
       try {
-        const query = `SELECT * FROM cardapio`
-        const response = await CardapioMetodos.listar(query)
+        const response = await CardapioMetodos.listar()
         res.status(200).json(response)
       } catch (error) {
         res.status(400).send(error)
       }  
-
     })
 
     app.get("/cardapio/resumo",  async (req, res) => {
-      
       try {
-
-        const query = `SELECT sabor_cardapio, tamanho_cardapio, valor_cardapio FROM cardapio`
-        const response = await CardapioMetodos.listar(query)
+        const response = await CardapioMetodos.listarResumo()
         res.status(200).json(response)
       } catch (error) {
         res.status(400).send(error)
       }  
-
     })
 
     app.get("/cardapio/sabor/:sabor",  async (req, res) => {
-      
         try {
-
-          const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
-
-          const response = await CardapioMetodos.listarPorParametro(query, req.params.sabor)
-
+          const response = await CardapioMetodos.listarPorSabor(req.params.sabor)
           if (response.length > 0) {
             res.status(200).json(response)
           } else {
             res.status(406).json({Not_Found: `O sabor_cardapio ${req.params.sabor} não foi encontrado em nossa base da dados!`})
-
           } 
         } catch  (error) {
-
           res.status(400).json(error)
         }     
-
     })
 
     app.get("/cardapio/categoria/:categoria",  async (req, res) => {
-      
       try {
-       
         const categ = CardapioValidacoes.validaCategoria(req.params.categoria)
-
         if(categ) {
-
-          const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`
-          
-          const response = await CardapioMetodos.listarPorParametro(query, req.params.categoria)
+          const response = await CardapioMetodos.listarPorCategoria(req.params.categoria)
           res.status(200).json(response)
         } else {
           throw new Error("Categoria solicitada é inválida!")
         }
-        
       } catch(error) {
         res.status(400).json({Error:error.message})
       }     
-
     })
 
     app.get("/cardapio/id/:id",  async (req, res) => {
-      
       try {
-
-        const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
-
-        const response = await CardapioMetodos.listarPorParametro(query,req.params.id)
-        
-        if (response.length > 0) {
+        const response = await CardapioMetodos.listarPorId(req.params.id)
+          if (response.length > 0) {
           res.status(200).json(response)
-
         } else {
-
           res.status(406).json({Error: `O id_cardapio ${req.params.id} não foi encontrado em nossa base da dados!`})
         }
-        
-        
       } catch(error) {
-
         res.status(400).send({error:error.message})
       }
-      
     })
 
     app.post("/cardapio/novo", async (req, res) => {
-
       try {
         const body = req.body
         const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
@@ -115,11 +80,9 @@ class CardapioController {
       } catch  (error) {
         res.status(401).send({error:error.message})
       }      
-              
     })
 
-     app.put("/cardapio/:id", async (req, res) =>{
-
+    app.put("/cardapio/:id", async (req, res) =>{
         try {
           const body = req.body
           const itemValido = CardapioValidacoes.validaNovoItem(body.sabor_cardapio, body.categoria_cardapio, body.valor_cardapio, body.ingredientes_cardapio, body.tamanho_cardapio)
@@ -132,26 +95,17 @@ class CardapioController {
         } catch(error) {
           res.status(404).json({Error:error.message})
         }
-      
-      
     })
 
-
-  app.delete("/cardapio/delete/:id", async (req, res) => {
-
+    app.delete("/cardapio/delete/:id", async (req, res) => {
       try {                
-        
         const item = await CardapioMetodos.deletarItemCardapioPorId(req.params.id)
         res.status(200).json(item)
-              
       } catch (error) {    
         res.status(404).json({Error: error.message})
       }
     })
-
   }
-
 }
-
 
 export default CardapioController;

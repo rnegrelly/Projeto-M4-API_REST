@@ -3,12 +3,27 @@ import DatabaseMetodos from "./DatabaseMetodos.js";
 
 class CardapioMetodos extends DatabaseMetodos {
 
-  static async listarPorParametro(query, valor) {
-    
-    
+  static listar() {
+
+    const query = `SELECT * FROM cardapio`
 
     return new Promise((resolve, reject)=> {
-      Database.all(query, valor, (e, resultado)=>{
+      Database.all(query, (e, resultado)=>{
+          if(e){
+              reject(e.message)
+          } else {
+              resolve(resultado)
+          }
+      })
+    })
+  }
+
+  static async listarResumo() {
+
+    const query = `SELECT sabor_cardapio, tamanho_cardapio, valor_cardapio FROM cardapio`
+    
+    return new Promise((resolve, reject)=> {
+      Database.all(query, (e, resultado)=>{
           if(e){
             reject(e.message)
           } else {
@@ -17,6 +32,53 @@ class CardapioMetodos extends DatabaseMetodos {
       })
     })
   }
+
+  static async listarPorSabor(sabor) {
+
+    const query = `SELECT * FROM cardapio WHERE sabor_cardapio = ?`
+    
+    return new Promise((resolve, reject)=> {
+
+      Database.all(query, sabor, (e, resultado)=>{
+          if(e){
+            reject(e.message)
+          } else {
+            resolve(resultado)
+          }
+      })
+    })
+  }
+
+  static async listarPorId(id) {
+
+    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
+    
+    return new Promise((resolve, reject)=> {
+
+      Database.all(query, id, (e, resultado)=>{
+          if(e){
+            reject(e.message)
+          } else {
+            resolve(resultado)
+          }
+      })
+    })
+  }
+
+  static async listarPorCategoria(categoria) {
+    const query = `SELECT * FROM cardapio WHERE categoria_cardapio = ?`
+    return new Promise((resolve, reject)=> {
+      Database.all(query, categoria, (e, resultado)=>{
+        if(e){
+            reject(e.message)
+        } else {
+            resolve(resultado)
+        }
+      })
+    })
+  }
+
+
 
    static insereItemCardapio(item) {
 

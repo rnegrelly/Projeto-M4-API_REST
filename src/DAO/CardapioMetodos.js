@@ -101,7 +101,7 @@ class CardapioMetodos extends DatabaseMetodos {
   static async atualizarItemCardapio(entidade, id){
 
     const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
-    const idValido = await this.listarPorParametro(query, id)
+    const idValido = await this.listarPorId(query, id)
           
     if (idValido[0].id_cardapio > 0) {
     
@@ -132,8 +132,7 @@ class CardapioMetodos extends DatabaseMetodos {
 
   static async deletarItemCardapioPorId(id) {
     
-    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
-    const idValido = await this.listarPorParametro(query, id)
+    const idValido = await this.listarPorId(id)
        
     if (idValido[0].id_cardapio > 0) {
       const query = `DELETE FROM cardapio WHERE id_cardapio = ?`

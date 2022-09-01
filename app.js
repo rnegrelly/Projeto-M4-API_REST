@@ -6,11 +6,14 @@ import ColaboradoresController from "./src/controller/ColaboradoresController.js
 import FornecedoresController from "./src/controller/FornecedoresController.js";
 import CardapioController from "./src/controller/CardapioController.js";
 import ProdutosController from "./src/controller/ProdutosController.js";
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors())
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

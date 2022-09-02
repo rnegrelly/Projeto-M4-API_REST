@@ -100,8 +100,7 @@ class CardapioMetodos extends DatabaseMetodos {
 
   static async atualizarItemCardapio(entidade, id){
 
-    const query = `SELECT * FROM cardapio WHERE id_cardapio = ?`
-    const idValido = await this.listarPorId(query, id)
+    const idValido = await this.listarPorId(id)
           
     if (idValido[0].id_cardapio > 0) {
     
